@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Attendance</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-column flex-grow">
+        <div class="flex-no-shrink flex-row">
+            <div id="total_employees" class="title bold p10 flex-grow">Total Employee:</div>
+            <div class="title bold p10">Select Month:</div>
+            <div class="p5">
+                <input type="month" id="select_month" onchange="get_attendance()">
+            </div>
+            <div class="title bold p10">Filter By:</div>
+            <div class="p5">
+                <select id="select_shift_id" onchange="get_attendance('shift_id', this)"></select>
+            </div>
+            <div class="p5">
+                <select id="select_department_id" onchange="get_attendance('department_id', this)"></select>
+            </div>
+            <div class="p5">
+                <select id="select_designation_id" onchange="get_attendance('designation_id', this)"></select>
+            </div>
+        </div>
+        <div class="flex-grow">
+            <div id="spreadsheet">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/attendance.js"></script>
+{% endblock %}

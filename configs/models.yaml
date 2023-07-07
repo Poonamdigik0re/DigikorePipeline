@@ -1,0 +1,852 @@
+default:
+  location:
+    - id
+    - name
+    - description
+    - gid
+
+  ldap_group:
+    - id
+    - name
+    - gid
+
+  shift:
+    - id
+    - name
+    - intime
+    - outtime
+    - color
+
+  designation:
+    - id
+    - name
+    - site_group_id
+    - site_group__name
+    - ldap_group_id
+    - ldap_group__name
+    - is_artist
+
+  department:
+    - id
+    - name
+    - order
+    - resource_planner
+
+  team:
+    - id
+    - location_id
+    - location__name
+    - department_id
+    - department__name
+    - shift_id
+    - shift__name
+    - lead_id
+    - lead__userprofile__full_name
+
+  skill:
+    - id
+    - name
+
+  userprofile:
+    - id
+    - user_id
+    - location_id
+    - uid
+    - full_name
+    - empid
+    - department_id
+    - department__name
+    - designation_id
+    - designation__name
+    - date_of_joining
+    - gender
+    - blood_group
+    - date_of_birth
+    - category
+    - aadhar_number
+    - employment_type
+    - phone
+    - current_address
+    - permanent_address
+    - emergency_contact
+    - emergency_phone
+    - confirmation_status
+    - confirmation_date
+    - confirmation_letter_issued
+    - expected_rop
+    - bgv_report
+    - bgv_result
+    - pip_start_date
+    - pip_end_date
+    - date_of_leaving
+    - reason_of_leaving
+    - paid_leave
+    - casual_leave
+    - comp_off
+    - team_id
+    - transport_required
+    - vehicle_type
+    - vehicle_number
+    - profile_picture
+    - password_reset
+    - password_reset_on
+
+  compoff:
+    - id
+    - user_id
+    - date
+    - total_days
+    - status
+    - reason
+    - rejection
+    - can_be_incentive
+    - is_incentive
+    - updated_on
+    - updated_by_id
+    - updated_by__userprofile__full_name
+    - created_on
+
+  leave:
+    - id
+    - user_id
+    - user__userprofile__full_name
+    - leave_type
+    - from_date
+    - to_date
+    - total_days
+    - status
+    - reason
+    - rejection
+    - updated_on
+    - updated_by__userprofile__full_name
+    - created_on
+    - created_by__userprofile__full_name
+
+  leave_log:
+    - id
+    - user_id
+    - user__userprofile__full_name
+    - leave_type
+    - total_days
+    - created_on
+    - created_by__userprofile__full_name
+
+  attendance:
+    - id
+    - user_id
+    - user__userprofile__full_name
+    - type
+    - date
+    - intime
+    - outtime
+    - working_hours
+
+  company_holiday:
+    - id
+    - location_id
+    - location__name
+    - date
+    - name
+    - working
+
+  reporting_rule:
+    - id
+    - junior_id
+    - junior__name
+    - senior_id
+    - senior__name
+
+  contact:
+    - id
+    - name
+    - email
+    - title
+    - phone
+    - created_on
+    - created_by__userprofile__full_name
+
+  vendor:
+    - id
+    - name
+    - address
+    - created_on
+    - created_by__userprofile__full_name
+
+  client:
+    - id
+    - address
+    - created_on
+    - created_by__userprofile__full_name
+
+  project_status:
+    - id
+    - name
+    - default
+    - order
+    - locked
+
+  project_type:
+    - id
+    - name
+    - default
+
+  project:
+    - id
+    - client_id
+    - client__name
+    - name
+    - department
+    - description
+    - type_id
+    - type__name
+    - status_id
+    - status__name
+    - fps
+    - gid
+    - change_order
+    - markup_perc
+    - markup_value
+    - start_date
+    - end_date
+    - client_emails
+    - internal_emails
+    - vault_url
+    - thumbnail
+    - created_on
+    - created_by__userprofile__full_name
+    - msi_sync
+
+  shot_status:
+    - id
+    - name
+    - default
+    - bg_color
+    - fg_color
+
+
+  shot:
+    - id
+    - project_id
+    - sequence
+    - scene
+    - reel
+    - episode
+    - department
+    - name
+    - parent_type
+    - parent_id
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - start_date
+    - end_date
+    - client_first_frame
+    - client_last_frame
+    - working_first_frame
+    - working_last_frame
+    - created_on
+    - created_by__userprofile__full_name
+    - show_name
+    - description
+    - fps
+    - resolution
+    - thumbnail
+    - vault_url
+    - annotation
+    - client_remarks
+    - internal_supervisor_remarks
+    - client_feedback
+    - bids
+    - execution_type
+    - internal_approval
+
+  change_order:
+    - id
+    - project_id
+    - project__name
+    - shot_id
+    - shot__name
+    - description
+    - methodology
+    - assumption
+    - client_bid_note
+    - digikore_bid_note
+    - bid_status
+    - bid_id
+    - turnover_date
+    - bid_cost
+    - markup_perc
+    - markup_value
+    - cost_to_date_perc
+    - cost_to_date_value
+    - client_first_frame
+    - client_last_frame
+    - working_first_frame
+    - working_last_frame
+    - created_on
+    - created_by__userprofile__full_name
+
+  change_order_bid:
+    - id
+    - project_id
+    - project__name
+    - shot_id
+    - shot__name
+    - change_order_id
+    - task_type_id
+    - task_type__name
+    - bid
+    - rate
+
+  task_type:
+    - id
+    - name
+    - order
+    - default
+    - department_id
+    - department__name
+    - bg_color
+    - fg_color
+
+  task_status:
+    - id
+    - name
+    - default
+    - bg_color
+    - fg_color
+
+  task_complexity:
+    - id
+    - name
+    - default
+    - bg_color
+    - fg_color
+
+  task_priority:
+    - id
+    - name
+    - default
+    - bg_color
+    - fg_color
+
+  task:
+    - id
+    - project_id
+    - parent_type
+    - parent_id
+    - name
+    - type_id
+    - type__name
+    - type__bg_color
+    - type__fg_color
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - complexity_id
+    - complexity__name
+    - complexity__bg_color
+    - complexity__fg_color
+    - priority_id
+    - priority__name
+    - priority__bg_color
+    - priority__fg_color
+    - assignee_id
+    - assignee__userprofile__full_name
+    - vendor_id
+    - vendor__name
+    - description
+    - bids
+    - actuals
+    - start_date
+    - end_date
+    - due_date
+    - turnover_date
+    - turnover_no
+    - working_first_frame
+    - working_last_frame
+    - start_frame
+    - end_frame
+    - approved_version
+    - delivered_version
+    - assign_bid
+    - scope_of_work
+    - shot_id
+    - department_id
+
+  subtask_status:
+    - id
+    - name
+    - default
+    - bg_color
+    - fg_color
+
+  subtask:
+    - id
+    - project_id
+    - parent_type
+    - parent_id
+    - name
+    - description
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - assignee_id
+    - assignee__userprofile__full_name
+    - bids
+    - actuals
+    - work_perc
+    - start_date
+    - end_date
+
+  note_type:
+    - id
+    - name
+    - default
+    - order
+    - bg_color
+    - fg_color
+
+  note:
+    - id
+    - parent_type
+    - parent_id
+    - text
+    - type_id
+    - type__name
+    - type__bg_color
+    - type__fg_color
+    - created_on
+    - created_by__userprofile__full_name
+    - created_by__userprofile__profile_picture
+
+  attachment:
+    - id
+    - name
+    - size
+    - file
+    - type
+    - restricted
+    - created_on
+    - created_by__userprofile__full_name
+
+  changelog:
+    - id
+    - project_id
+    - parent_type
+    - parent_id
+    - key
+    - value
+    - created_on
+    - created_by__userprofile__full_name
+
+  notification:
+    - id
+    - user
+    - text
+    - read
+    - created_on
+    - created_by__userprofile__full_name
+
+  dependency:
+    - id
+    - project_id
+    - parent_type
+    - parent_id
+    - child_type
+    - child_id
+    - created_on
+    - created_by__userprofile__full_name
+
+  filerecord_type:
+    - id
+    - name
+
+  filerecord_status:
+    - id
+    - name
+    - default
+    - bg_color
+    - fg_color
+
+  filerecord:
+    - id
+    - project_id
+    - project__name
+    - parent_type
+    - parent_id
+    - name
+    - version
+    - path
+    - type_id
+    - type__name
+    - status_id
+    - status__name
+    - first_frame
+    - last_frame
+    - extension
+    - padding
+    - created_on
+    - created_by__userprofile__full_name
+
+  bid_status:
+    - id
+    - name
+    - default
+    - locked
+    - bg_color
+    - fg_color
+
+  bid:
+    - id
+    - client_id
+    - client__name
+    - project
+    - project_type_id
+    - project_type__name
+    - name
+    - stereo_budget
+    - stereo_minutes
+    - resolution
+    - fps
+    - start_date
+    - end_date
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - purchase_order
+    - invoice_number
+    - rejected_for
+    - created_on
+    - created_by__userprofile__full_name
+    - modified_on
+    - modified_by__userprofile__full_name
+
+  bidshot:
+    - id
+    - bid_id
+    - sequence
+    - shot
+    - task
+    - task_type_id
+    - task_type__name
+    - bids
+    - awarded
+    - internal_eta
+    - client_eta
+    - first_frame
+    - last_frame
+    - plate_version
+    - description
+    - sup_note
+    - created_on
+    - created_by__userprofile__full_name
+    - modified_on
+    - modified_by__userprofile__full_name
+
+  baserate:
+    - id
+    - task_type_id
+    - task_type__name
+    - date
+    - rate
+
+  base_rop:
+    - id
+    - task_type
+    - rate_id
+
+  bidrate:
+    - id
+    - bid_id
+    - task_type_id
+    - task_type__name
+    - base_rate
+    - rate
+    - created_on
+    - created_by__userprofile__full_name
+    - modified_on
+    - modified_by__userprofile__full_name
+
+  bid_actual:
+    - id
+    - project_id
+    - shot_id
+    - task_id
+    - subtask_id
+    - user_id
+    - date
+    - actuals
+    - modified_on
+
+  email_group:
+    - id
+    - name
+    - mail_to
+    - cc_to
+
+  announcement:
+    - id
+    - text
+    - valid_till
+    - created_on
+    - created_by__userprofile__full_name
+
+  resource_cache:
+    - id
+    - department_id
+    - department__name
+    - date
+    - headcount
+    - absent
+    - leave
+    - working_hours
+    - mandays
+    - allocated
+    - borrowed_resources
+    - lend_resources
+    - weekdays
+    - weekly
+
+  resource_share:
+    - id
+    - from_department_id
+    - from_department__name
+    - to_department_id
+    - to_department__name
+    - date
+    - count
+
+  workstation:
+    - id
+    - cpu
+    - ram
+    - ip
+    - mac
+    - hdd
+    - hostname
+    - gpu
+    - os
+    - status
+    - user
+    - modified_on
+    - sys_vendor
+    - product_name
+
+  file_transfer:
+    - id
+    - from_path
+    - to_path
+    - size
+    - files
+    - status
+    - percent
+    - cancel
+    - canceled_by__userprofile__full_name
+    - modified_on
+    - created_on
+    - created_by__userprofile__full_name
+
+  gmail_group:
+    - id
+    - api_id
+    - name
+    - email
+    - created_on
+
+  ticket_priority:
+    - id
+    - name
+    - default
+    - order
+
+  ticket_status:
+    - id
+    - name
+    - default
+    - order
+    - locked
+
+  ticket_type:
+    - id
+    - name
+    - default
+    - order
+
+  ticket:
+    - id
+    - title
+    - description
+    - priority_id
+    - priority__name
+    - type_id
+    - type__name
+    - status_id
+    - status__name
+    - assigned_to_id
+    - assigned_to__userprofile__full_name
+    - assigned_on
+    - created_by_id
+    - created_by__userprofile__full_name
+    - created_on
+    - resolved_by_id
+    - resolved_by__userprofile__full_name
+    - resolved_on
+
+projects:
+  project:
+    - id
+    - name
+    - vault_url
+    - department
+
+  shot:
+    - id
+    - parent_type
+    - parent_id
+    - name
+    - department
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+
+  task:
+    - id
+    - name
+    - parent_type
+    - parent_id
+    - department
+    - type_id
+    - type__name
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - complexity_id
+    - complexity__name
+    - priority_id
+    - priority__name
+    - assignee_id
+    - assignee__userprofile__full_name
+    - vendor_id
+    - vendor__name
+    - start_date
+    - end_date
+    - bids
+    - actuals
+    - shot_id
+
+task_overview:
+  project:
+    - id
+    - name
+    - status__name
+
+  shot:
+    - id
+    - parent_type
+    - parent_id
+    - name
+    - sequence
+    - project_id
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+
+  task:
+    - id
+    - name
+    - parent_type
+    - parent_id
+    - type_id
+    - shot_id
+    - type__name
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - assignee__userprofile__full_name
+    - bids
+    - actuals
+
+  subtask:
+    - id
+    - parent_type
+    - parent_id
+    - name
+    - status_id
+    - status__name
+    - assignee_id
+    - assignee__userprofile__full_name
+    - bids
+    - actuals
+    - work_perc
+    - end_date
+
+shots_list:
+  project:
+    - id
+    - name
+    - status__name
+    - vault_url
+    - department
+  shot:
+    - id
+    - name
+    - sequence
+
+tasks_list:
+  shot:
+    - id
+    - name
+    - sequence
+    - parent_id
+
+  task:
+    - id
+    - name
+    - project_id
+    - project__name
+    - parent_id
+    - type__name
+    - status_id
+    - status__name
+    - status__bg_color
+    - status__fg_color
+    - assignee__userprofile__full_name
+    - bids
+    - actuals
+
+  subtask:
+    - name
+    - project_id
+    - parent_id
+    - assignee__userprofile__full_name
+    - bids
+    - actuals
+
+resource_planner:
+  project:
+    - id
+    - client__name
+    - name
+    - type__name
+    - status__name
+    - start_date
+    - end_date
+
+artist_utilization:
+  attendance:
+    - user_id
+    - user__userprofile__full_name
+    - user__userprofile__department__name
+    - user__userprofile__team__lead__userprofile__full_name
+    - user__userprofile__team__shift__name
+    - intime
+    - outtime
+    - working_hours

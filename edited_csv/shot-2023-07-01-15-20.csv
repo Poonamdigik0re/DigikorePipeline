@@ -1,0 +1,2 @@
+id,Shot Name,start_date,end_date,client_first_frame,client_last_frame,working_first_frame,working_last_frame,project_name,status,reel,scene,sequence,episode,annotation,bids,client_feedback,client_remarks,description,execution_type,fps,internal_approval_id,internal_supervisor_remarks,resolution,show_name,thumbnail,vault_url,department
+7,C2Wedx121346985,2023-02-28,2023-03-28,1001,2001,1010,2001,CCCCCC,In progress,test1212,CC2,C113,XC113,/static/img/default_poster.png,0,,,,,24,,,,CCCCCC,/static/img/default_poster.png,,Comics

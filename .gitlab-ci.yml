@@ -1,0 +1,9 @@
+deploy_code:
+  stage: deploy
+  only:
+    - master
+  script:
+    - ssh root@192.168.5.230 'cd /opt/repos/DigikorePortal && git checkout . && git pull origin master'
+    - ssh root@192.168.5.230 'systemctl restart uwsgi.service'
+    - ssh root@192.168.5.230 'cd /opt/repos/DigikorePortal && git checkout . && git pull origin master'
+    - ssh root@192.168.5.230 'systemctl restart uwsgi.service'

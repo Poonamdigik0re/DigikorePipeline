@@ -1,0 +1,22 @@
+select count(*), SPLIT_PART(relative_dir, '/', 1), sum(st_size) from site_sync where status='sig_ready' GROUP BY SPLIT_PART(relative_dir, '/', 1);
+
+
+
+update site_sync set priority=5 where status='sig_ready' and SPLIT_PART(relative_dir, '/', 1)='GUM_553';
+update site_sync set priority=4 where status='sig_ready' and SPLIT_PART(relative_dir, '/', 1)='LKR_591';
+update site_sync set priority=3 where status='sig_ready' and SPLIT_PART(relative_dir, '/', 1)='ML2_585';
+update site_sync set priority=1 where status='sig_ready' and SPLIT_PART(relative_dir, '/', 1) not in ('GUM_553', 'LKR_591', 'ML2_585');
+update site_sync set priority=0 where status='sig_ready' and SPLIT_PART(relative_dir, '/', 1)='SKYF_584';
+
+
+
+select count(*), status, sum(st_size) from site_sync where status not in ('complete', 'deleted', 'sig_finished', 'remote_sync') GROUP BY status;
+
+
+update site_sync set priority=5 where job_name='Path_Sync';
+
+insert into login (login, password, email, domain_login, display_name, site, first_name, last_name, title, department, user_id)
+	values ('turnera', '3d4dcd6fc8845fa8dfc04c3ea01eb0fb', 'aturner@digikore3d.com', 'turnera', 'Andrew Turner', 'LAX', 'Andrew', 'Turner', 'Production Manager', 'Production', '0046');
+
+
+update shot set client_shot=replace(code, '597_', 'MAH_') where project_code='MHR_597' and client_shot is null

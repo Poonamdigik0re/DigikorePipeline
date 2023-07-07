@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Project Permission</div>
+{% endblock %}
+
+{% block content %}
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink flex-row">
+            <div class="wp30">
+                <a href="/projects_list/" class="icon arrow-left"></a>
+                <span class="font-xl">{{ project_name }}</span>
+            </div>
+            <input type="search" class="wp20" id="select__name" placeholder="Search User" onkeyup="apply_filters()">&ensp;
+            <select class="wp20" id="select__department_id"></select>&ensp;
+            <select class="wp20" id="select__designation_id"></select>&ensp;
+            <button class="wp10" onclick="save_permissions()">Save Permissions</button>
+        </div>
+        <div class="flex-no-shrink">
+            <table class="table fixed wp100">
+                <thead class="flex-grow">
+                <tr>
+                    <th>User</th>
+                    <th>Designation</th>
+                    <th>Department</th>
+                    <th>
+                        <label>
+                            <input type="checkbox" id="select_all_users"
+                                   onchange="select_all_users(this)">&ensp;Select All
+                        </label>
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="flex-grow">
+            <table class="table fixed hover wp100">
+                <tbody id="all_users"></tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/projects_permission.js"></script>
+{% endblock %}

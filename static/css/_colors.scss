@@ -1,0 +1,89 @@
+$bg-color: #ffffff;
+$border-color: #ddd;
+$shadow: rgba(0, 0, 0, 0.4);
+
+$navbar-bg: #3b4579;
+$navbar-fg: #ffffff;
+$white: #fff;
+$black: #000;
+
+$turqoise: #1abc9c;
+$green-sea: #16a085;
+$emerald: #2ecc71;
+$nephritis: #27ae60;
+$green: #4caf50;
+$light-green: #8bc34a;
+$lime: #cddc39;
+$river: #3498db;
+$belize: #2980b9;
+$asphalt: #34495e;
+$midnight-blue: #2c3e50;
+$blue: #2196f3;
+$light-blue: #03a9f4;
+$cyan: #00bcd4;
+$teal: #009688;
+$alizarin: #e74c3c;
+$pomegranate: #c0392b;
+$red: #f44336;
+$carrot: #e67e22;
+$pumpkin: #d35400;
+$dull-orange: #f39c12;
+$orange: #ff9800;
+$blood-orange: #ff5722;
+$amber: #ffc107;
+$sunflower: #f1c40f;
+$yellow: #ffeb3b;
+$amethyst: #9b59b6;
+$plum: #8e44ad;
+$purple: #9c27b0;
+$purple: #673ab7;
+$pink: #e91e63;
+$indigo: #3f51b5;
+$brown: #795548;
+$grey: #9e9e9e;
+$gun-metal: #607d8b;
+$asbestos: #7f8c8d;
+$concrete: #95a5a6;
+$silver: #bdc3c7;
+$clouds: #dde4e6;
+$paper: #efefef;
+$black: #212121;
+
+.bg-red {
+  background-color: $red !important;
+  color: white;
+}
+
+.bg-blue {
+  background-color: $blue !important;
+  color: white;
+}
+
+.bg-highlight {
+  background-color: $dull-orange;
+  color: white;
+}
+
+.bg-grey {
+  background-color: $border-color
+}
+
+.bg-dark-clouds {
+  background-color: #c1c7c7;
+}
+
+.bg-clouds {
+  background-color: $clouds;
+}
+
+.bg-paper {
+  background-color: $paper;
+}
+
+.color-red {
+  color: $red;
+}
+
+.border-red {
+  border-color: $red;
+}

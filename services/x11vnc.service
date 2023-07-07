@@ -1,0 +1,13 @@
+[Unit]
+Description = x11vnc
+After = multi-user.target
+
+[Service]
+ExecStart = /usr/bin/x11vnc -display :0 -forever -bg -o /var/log/x11vnc.log -shared -norc -noxdamage -rfbauth /etc/x11vnc.pass -rfbport 3389
+Restart = always
+RestartSec = 10
+KillSignal = SIGQUIT
+Type = forking
+
+[Install]
+WantedBy = multi-user.target

@@ -1,0 +1,15 @@
+[Unit]
+Description = digikore Central Web Application
+After = network.target
+
+[Service]
+ExecStart = /opt/venv/digikoreCentral/bin/uwsgi --ini /opt/repos/digikoreCentral/configs/uwsgi.ini
+PIDFile = /var/run/digikorecentral.pid
+Restart = always
+KillSignal = SIGQUIT
+Type = notify
+StandardError = syslog
+NotifyAccess = all
+
+[Install]
+WantedBy = default.target

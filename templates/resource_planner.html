@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Resource Planner</div>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/libs/jexcel/jexcel.min.css?v=3.4.4">
+    <link rel="stylesheet" href="/static/libs/jexcel/jsuites.css">
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-column flex-grow">
+        <div class="flex-row flex-no-shrink">
+            <div class="tabs flex-grow"></div>
+            <div class="p10 border-bottom font-large ">Change Month</div>
+            <div class="p5 border-bottom">
+                <input type="month" id="select__month" onchange="load_data()">
+            </div>
+            <div class="p5 border-bottom">
+                <button onclick="download_sheet()">Download as CSV</button>
+            </div>
+        </div>
+        <div class="flex-grow flex-column p10">
+            <div id="spreadsheet" class="flex-grow">
+                <h2>Please select a department from above tabs.</h2>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/libs/jexcel/jexcel.min.js?v=3.4.4"></script>
+    <script type="text/javascript" src="/static/libs/jexcel/jsuites.js"></script>
+    <script type="text/javascript" src="/static/libs/chartjs/chart.min.js"></script>
+    <script type="text/javascript" src="/static/js/resource_planner.js?v=20191104.1"></script>
+{% endblock %}

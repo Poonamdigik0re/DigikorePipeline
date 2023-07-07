@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Digikore Central</title>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="keywords" content="vfx, central, software, asset, management">
+    <meta name="description" content="Digikore Central Web Application">
+    <meta name="subject" content="Digikore Central Web Application">
+    <meta name='Classification' content='Business'>
+    <meta name="copyright" content="Digikore 3D">
+    <meta name="google" content="notranslate"/>
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" href="/static/libs/slimselect/slimselect.min.css">
+    <link rel="stylesheet" href="/static/libs/flatpicker/flatpickr.min.css">
+    {% block css %}{% endblock %}
+
+    <link rel="stylesheet" href="/static/css/base.min.css"/>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+
+    <input id="csv_selector" type="file" accept=".csv" style="display: none"/>
+
+    <!-- LOADING -->
+    <div id="loading" class="flex-column flex-screen-center">
+        <div>
+            <img src="/static/img/reload.png" alt="">
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modals">{% block modals %} {% endblock %}</div>
+
+    <!-- Change Log -->
+    <div class="modal flex-column flex-screen-center" id="change_logs">
+        <div class="dialog w80 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Change Log</div>
+                <div class="close" onclick="hide_modal('change_logs')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                        <th>Updated By</th>
+                        <th>Update At</th>
+                    </tr>
+                    </thead>
+                    <tbody id="all_change_logs"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="change_password(this); return false" id="change_password">
+        <div class="dialog w30 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Change Password</div>
+                <div class="close" onclick="hide_modal('change_password')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border" width="100%">
+                    <tr>
+                        <th colspan="2" id="change_password_label" class="color-red" align="center"></th>
+                    </tr>
+                    <tr>
+                        <th>New Password</th>
+                        <td>
+                            <!-- http://html5pattern.com/Passwords -->
+                            <input type="password" class="block" name="new_password" required
+                                   pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Confirm Password</th>
+                        <td>
+                            <input type="password" class="block" name="confirm_password" required
+                                   pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right">
+                            Minimum 8 alphanumeric characters.
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- ADD ATTACHMENTS -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="return false" id="add_attachments">
+        <div class="dialog w80 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Documents</div>
+                <div class="close" onclick="hide_modal('add_attachments')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table" id="attachment_list">
+                    <thead>
+                    <tr>
+                        <th>Sr.</th>
+                        <th>File Name</th>
+                        <th>File Size</th>
+                        <th>Uploaded By</th>
+                        <th>Uploaded On</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow">
+                    <input type="file" id="attachment_files" multiple>
+                </div>&ensp;
+                <div>
+                    <button type="button" id="upload_attachments">Upload Files</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="flex-column flex-grow">
+        <!-- NAVBAR -->
+        <div id="navbar" class="flex-row flex-no-shrink">
+            <a href="/" id="logo"></a>
+            <div>
+                {% block navbar %}{% endblock %}
+            </div>
+            <div class="flex-grow"></div>
+
+            <div class="dropdown">
+                <div class="title p10">TECH</div>
+                <div class="menu">
+                    {% if perms.base.tickets %}
+                        <a class="item" href="/tickets/">Tickets</a>
+                    {% endif %}
+
+                    {% if perms.base.file_transfer %}
+                        <a class="item" href="/file_transfer/">File Transfer</a>
+                    {% endif %}
+                    {% if perms.base.workstations %}
+                        <a class="item" href="/workstations/">Workstations</a>
+                    {% endif %}
+                    {% if perms.base.project_archival %}
+                        <a class="item" href="/project_archival/">Project Archival</a>
+                    {% endif %}
+<!--                    {% if perms.base.site_sync %}-->
+<!--                        <a class="item" href="/site_sync/">Site Sync</a>-->
+<!--                    {% endif %}-->
+
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div class="title p10">PROD</div>
+
+                <div class="menu">
+                    {% if perms.base.clients_list %}
+                        <a class="item" href="/clients_list/">Clients List</a>
+                    {% endif %}
+                    {% if perms.base.vendors_list %}
+                        <a class="item" href="/vendors_list/">Vendors List</a>
+                    {% endif %}
+                    {% if perms.base.projects_list %}
+                        <a class="item" href="/projects_list/">Projects List</a>
+                    {% endif %}
+                    {% if perms.base.tasks_list %}
+                        <a class="item" href="/tasks_list/">Tasks List</a>
+                    {% endif %}
+                    {% if perms.base.resource_planner %}
+                        <a class="item" href="/resource_planner/">Resource Planner</a>
+                    {% endif %}
+                    {% if perms.base.ingest_system %}
+                        <a class="item" href="/ingest_system/">Ingest System</a>
+                    {% endif %}
+                    {% if perms.base.bidding_system %}
+                        <a class="item" href="/bidding_system/">Bidding System</a>
+                    {% endif %}
+                    {% if perms.base.artist_utilization %}
+                        <a class="item" href="/artist_utilization/">Artist Utilization</a>
+                    {% endif %}
+                    {% if perms.base.gmail_group %}
+                        <a class="item" href="/gmail_group/">Gmail Group</a>
+                    {% endif %}
+                    {% if perms.base.shot_list %}
+                        <a class="item" href="/shot_list">Shot List</a>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="dropdown">
+                <div class="title p10">HR</div>
+                <div class="menu">
+                    {% if perms.base.employee_manager %}
+                        <a class="item" href="/employee_manager/">Employee Manager</a>
+                    {% endif %}
+                    {#                                        {% if perms.base.leave_manager %}#}
+                    {#                                            <a class="item" href="/leave_manager/">Leave Manager</a>#}
+                    {#                                        {% endif %}#}
+
+                    {% if perms.base.transportation_page %}
+                        <a class="item" href="/transportation/">Transportation</a>
+                    {% endif %}
+                    {% if perms.base.vehicle_directory %}
+                        <a class="item" href="/vehicle_directory/">Vehicle Directory</a>
+                    {% endif %}
+                                                            {% if perms.base.team_manager %}
+                                                              <a class="item" href="/team_manager/">Team Manager</a>
+                                                        {% endif %}
+                    {#                                        {% if perms.base.attendance %}#}
+                    {#                                            <a class="item" href="/attendance/">Attendance</a>#}
+                    {#                                        {% endif %}#}
+                    {#                                        {% if perms.base.reporting_rule %}#}
+                    {#                                            <a class="item" href="/reporting_rule/">Reporting Rule</a>#}
+                    {#                                        {% endif %}#}
+
+                    <a class="item" href="/my_calendar/">My Calendar</a>
+                    <a class="item" href="/digikore_team/">Digikore Team</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <div class="title p10">
+                    <a href="/tasks_list/">MY TASKS</a>
+                </div>
+            </div>
+
+            {#            <div class="p10" id="notification-icon">#}
+            {#                <div class="icon mail"></div>#}
+            {#                <!-- NOTIFICATION -->#}
+            {#                <div id="notification_slider">#}
+            {##}
+            {#                </div>#}
+            {#            </div>#}
+            <div class="dropdown">
+                <div class="title p10">
+                    {{ user }} <img src="/static/img/arrow_down.png" height="10px">
+                </div>
+                <div class="menu">
+                    <div class="item" onclick="show_modal('change_password')">
+                        Change Password
+                    </div>
+                    {% if user.is_superuser %}
+                        <a class="item" href="/login_as/" target="_blank">Login As</a>
+                        <a class="item" href="/admin/" target="_blank">Admin</a>
+                    {% endif %}
+                    <a class="item" href="/logout/">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        {% block content %}{% endblock %}
+    </div>
+
+{% else %}
+
+    <!--LOGIN-->
+    <div id="login_form" class="w100 h100 flex-column flex-screen-center">
+
+        <form action="/login/" method="post">
+            {% csrf_token %}
+            <input name="next" value="{{ next|default:'/' }}" hidden/>
+            <div class="flex-row flex-screen-center" style="height: 150px;">
+                <img src="/static/logo.png" alt="">
+            </div>
+            <div class="p10 w25">
+                <input class="block" name="username" type="text" placeholder="USERNAME" required autofocus/>
+            </div>
+            <div class="p10 w25">
+                <input class="block" name="password" type="password" placeholder="PASSWORD" required/>
+            </div>
+            <div class="p10 w25">
+                <button class="block" type="submit">LOGIN</button>
+            </div>
+            <div class="p10 align-center color-red w25">
+                {% if form.non_field_errors %}
+                    Please enter correct username and password
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
+{% endif %}
+
+<!-- EXTERNAL LIBS -->
+<script type="text/javascript" src="/static/libs/slimselect/slimselect.min.js"></script>
+<script type="text/javascript" src="/static/libs/flatpicker/flatpickr.min.js"></script>
+
+<!-- JAVASCRIPTS -->
+
+<script type="text/javascript" src="/static/js/base.js"></script>
+{% block javascript %}
+{% endblock %}
+
+</body>
+</html>

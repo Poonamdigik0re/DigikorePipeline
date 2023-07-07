@@ -1,0 +1,108 @@
+/*CSS for Ticketing System */
+
+.ticket-img-thumbnail {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+  object-fit: cover;
+
+}
+
+.ticket-note-profile {
+  width: 5em;
+  height: 5em ;
+  //object-fit: cover;
+  //padding: 0.5em;
+}
+
+.ticket-file-thumbnail {
+  background-repeat: no-repeat;
+  background-image: url("/static/img/file.png");
+  word-wrap: break-word;
+  background-size: 100% 100%;
+}
+
+.ticket-note-img-thumbnail {
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  object-fit: cover;
+
+}
+
+.ticket-note-file-thumbnail {
+  background-repeat: no-repeat;
+  background-image: url("/static/img/file.png");
+  word-wrap: break-word;
+  font-size: 80%;
+  background-size: 100% 100%;
+}
+
+/* The Modal (background) */
+.img-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(100, 100, 100, 0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.img-modal-content {
+  margin: auto;
+  display: block;
+
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0)
+  }
+  to {
+    -webkit-transform: scale(1)
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0)
+  }
+  to {
+    transform: scale(1)
+  }
+}
+
+/* The Close Button */
+.img-close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.img-close:hover,
+.img-close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+  .img-modal-content {
+    width: 100%;
+  }
+}

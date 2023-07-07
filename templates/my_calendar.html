@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">My Calendar</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-column flex-grow">
+        <div class="flex-row flex-no-shrink border-bottom">
+            <div class="flex-grow"></div>
+            <div class="p10 font-large ">Attendance for the Month</div>
+            <div class="p5">
+                <input type="month" id="select__month" onchange="get_my_attendance()">
+            </div>
+        </div>
+        <div class="flex-grow flex-column p10">
+            <div class="flex-no-shrink">
+                <table class="table fixed">
+                    <thead>
+                    <tr class="align-center">
+                        <th class="align-left">Date</th>
+                        <th>Attendance</th>
+                        <th>In Time</th>
+                        <th>Out Time</th>
+                        <th>Working Hours</th>
+                        <th>Production Hours</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="flex-grow">
+                <table class="table hover fixed">
+                    <tbody id="attendance_table"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/my_calendar.js"></script>
+{% endblock %}

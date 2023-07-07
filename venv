@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. /opt/venv/DigikorePortal/bin/activate
+
+alias reload="systemctl restart uwsgi celery websocket nginx"
+alias celery_monitor="celery -A utils events"
+alias celery_active="celery -A utils inspect active"
+
+alias dev_uwsgi="uwsgi -i configs/dev_uwsgi.ini"
+alias dev_celery="celery multi start w1 -A utils"
+alias dev_celery_stop="celery multi stopwait w1 --pidfile=./w1.pid"
+alias dev_websocket="python /opt/repos/digikoreCentral/utils/wss.py"

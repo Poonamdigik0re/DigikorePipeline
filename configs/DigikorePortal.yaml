@@ -1,0 +1,49 @@
+default:
+  site: pnq
+  secret_key: 7+Ua/g1IgEjYaosmf4AUwuyjDAa3ihP/IxzoOWNTHTNxvBs6mpeyOhAZmBczWwUg
+  allowed_hosts:
+    - digikore-pnq-central.digikore.work
+    - 127.0.0.1
+  ssl: false
+  debug: false
+
+database:
+  name: DigikorePortal
+  user: django
+  # fill this
+  password:
+  port: 3306
+
+  master_host: digikore-pnq-db01.digikore.work
+  slave_host: digikore-pnq-db01.digikore.work
+
+smtp:
+  host: mail.digikore.work
+  port: 25
+  user: central@digikore.work
+  password: g7oQwu
+  from: digikore Central<central@digikore.work>
+
+rabbitmq:
+  user: guest
+  # fill this
+  password:
+  vhost: amqp://guest:**@localhost:15672//
+
+storage:
+  mount:
+    prod: /mnt/prod
+    tools: /mnt/tools
+
+
+
+ldap:
+  server: digitest.gw
+  user: digipipeline@digitest.gw
+  password: DGk0re@1234
+  base_ou: OU=digitest,DC=digitest,DC=gw
+  user_cn: CN={name},OU=IT,OU=Domain Users,OU=PUNE,OU=D-Users,DC=digitest,DC=gw
+  group_cn: CN=Administrators,CN=Builtin,DC=digitest,DC=gw
+  disabled_user_ou: OU=Disable Users,OU=PUNE,OU=D-Users,DC=digitest,DC=gw
+  default_password: Digikore@1234
+  group_gid: 10010

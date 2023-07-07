@@ -1,0 +1,379 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Employee Manager</div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Add New User -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_new_employee(this); return false" id="add_new_employee">
+
+        <input type="hidden" name="user_id" value="">
+        <div class="dialog w40 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Employee Information</div>
+                <div class="close" onclick="hide_modal('add_new_employee')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="30%">
+                        <col width="70%">
+                    </colgroup>
+                    <tbody>
+
+                        <tr>
+                            <th>Location</th>
+                            <td>
+                                <select name="location_id" id="select_location_id"></select>
+                            </td>
+                        </tr>
+
+                    <tr>
+                        <th>First Name</th>
+                        <td><input class="block" type="text" name="first_name"
+                                   required="required" autofocus="autofocus" pattern="[a-zA-Z0-9]+"></td>
+                    </tr>
+                    <tr>
+                        <th>Last Name</th>
+                        <td><input class="block" type="text" name="last_name" required="required"
+                                   pattern="[a-zA-Z0-9]+"></td>
+                    </tr>
+                     <tr>
+                        <th>Employee id</th>
+                        <td>
+                            <input type="text" name="emp_id"  required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>
+                            <input type="text" name="username" class="block" id="username">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Department</th>
+                        <td>
+                            <select name="department_id" id="select_department_id"></select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Designation</th>
+                        <td>
+                            <select name="designation_id" id="select_designation_id"></select>
+                        </td>
+                    </tr>
+<!--                <tr>-->
+<!--                        <th>Skills</th>-->
+<!--                        <td>-->
+<!--                            <select name="skills__id" id="select_skills_id" multiple></select>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                    <tr>
+                        <th>Employment type</th>
+                        <td>
+                            <select name="employment_type" class="employment_type block" id="select_employment_type">
+                                <option value="payroll">Payroll</option>
+                                <option value="contract">Contract</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Date of Joining</th>
+                        <td>
+                            <input class="block datetime" type="text" name="date_of_joining" required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Blood Group</th>
+                        <td>
+                            <select class="block" name="blood_group" required="required">
+                                <option value="na">No Info</option>
+                                <option value="A +ve">A +ve</option>
+                                <option value="A -ve">A -ve</option>
+                                <option value="B +ve">B +ve</option>
+                                <option value="B -ve">B -ve</option>
+                                <option value="AB +ve">AB +ve</option>
+                                <option value="AB -ve">AB -ve</option>
+                                <option value="O +ve">O +ve</option>
+                                <option value="O -ve">O -ve</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>
+                            <select name="gender" class="gender_select block">
+                                <option value="male" selected="selected">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td>
+                            <input class="block datetime" type="text" name="date_of_birth" required="required">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Category</th>
+                        <td>
+                            <input type="text" name="category" max="40" class="block">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PAN No.</th>
+                        <td>
+                            <input type="text" name="pan" max="10" class="block">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Aadhar No.</th>
+                        <td>
+                            <input type="text" name="aadhar_number" max="12" class="block">
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>Phone</th>
+                        <td>
+                            <input class="block" name="phone"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Current Address</th>
+                        <td>
+                            <textarea class="block" name="current_address" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Permanent Address</th>
+                        <td>
+                            <textarea class="block" name="permanent_address" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Emergency Contact</th>
+                        <td>
+                            <textarea class="block" name="emergency_contact" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Emergency Phone</th>
+                        <td>
+                            <input class="block" name="emergency_phone"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Confirmation Status</th>
+                        <td>
+                            <select name="confirmation_status" class="block">
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="terminated">Terminated</option>
+                                <option value="resigned">Resigned</option>
+                                <option value="absconding">Absconding</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Confirmation Date</th>
+                        <td>
+                            <input type="text" class="datetime block" name="confirmation_date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Confirmation Letter Issued</th>
+                        <td>
+                             <input type="checkbox" value="True" name="confirmation_letter_issued" checked>
+                        </td>
+                    </tr>
+<!--                    <tr>-->
+<!--                        <th>Appointment/Contract letter issued</th>-->
+<!--                        <td>-->
+<!--                            <select id="select_appointment_id" name="appointment_status" class=" block">-->
+<!--                                <option value="issued">issued</option>-->
+<!--                                <option value="notIssued">Not issued</option>-->
+<!--                            </select>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+
+                    <tr>
+                        <th>BGV Report</th>
+                        <td>
+                            <input type="text" name="bgv_report" class="block">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>BGV Result</th>
+                        <td>
+                            <input type="text" name="bgv_result" class="block">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Date of Leaving</th>
+                        <td>
+                            <input type="text" name="date_of_leaving" class="block datetime">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Reason of Leaving</th>
+                        <td>
+                            <textarea name="reason_of_leaving" class="block" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Profile Picture</th>
+                        <td>
+                            <input type="file" class="block" name="profile_picture" accept="image/jpeg,image/png">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-row flex-no-shrink p10">
+        <div class="page-header">Total Employees : <span id="total_employees"></span></div>
+        <div class="flex-grow"></div>
+        <div class="flex-row">
+            {% if user.is_superuser %}
+                <div class="dropdown">
+                    <button class="filter-title bold">Filter Location</button>
+                    <div class="flex-grow filter-menu" id="filter__location_id">
+                        <label class="block bold">
+                            <input type="checkbox" onchange="apply_filters('location_id', this)"
+                                   checked="checked"><span>Select All</span>
+                        </label>
+                    </div>
+                </div>
+            {% endif %}
+            &ensp;&ensp;
+            <button onclick="show_modal('add_new_employee')">Add New Employee</button>
+            &ensp;
+            <div class="dropdown">
+                <div class="icon list"></div>
+                <div class="menu">
+                    <a class="item" href="download_as_csv/">Download as CSV</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink">
+            <table class="table fixed emp_mngr_tbl" width="100%">
+                <colgroup>
+                    <col width="5%"> <!-- empid -->
+                    <col width="15%"> <!-- full_name -->
+                    <col width="10%"> <!-- username -->
+                    <col width="10%"> <!-- gender -->
+                    <col width="15%"> <!-- department -->
+                    <col width="15%"> <!-- designation -->
+                    <col width="10%"> <!-- confirmation-->
+                    <col width="15%"> <!-- date of joining-->
+                    <col width="5%"> <!-- edit -->
+                </colgroup>
+                <thead class="flex-grow">
+                <tr>
+                    <th>EMPID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th class="dropdown">
+                        <div class="filter-title">Gender</div>
+                        <div class="flex-grow filter-menu" id="filter__gender">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('gender', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                            <label class="block">
+                                <input type="checkbox" class="filter" checked="checked"
+                                       data-filter_key="gender" data-filter_value="male"
+                                       onclick="apply_filters()">Male</label>
+                            <label class="block">
+                                <input type="checkbox" class="filter" checked="checked"
+                                       data-filter_key="gender" data-filter_value="female"
+                                       onclick="apply_filters()">Female</label>
+                        </div>
+                    </th>
+                    <th class="dropdown">
+                        <div class="filter-title">Department</div>
+                        <div class="flex-grow filter-menu" id="filter__department_id">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('department_id', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+                    <th class="dropdown">
+                        <div class="filter-title">Designation</div>
+                        <div class="flex-grow filter-menu" id="filter__designation_id">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('designation_id', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+                    <th class="dropdown">
+                        <div class="filter-title">Confirmation</div>
+                        <div class="flex-grow filter-menu" id="filter__confirmation_status">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('confirmation_status', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+
+                    <th>DOJ</th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
+
+        </div>
+
+        <div class="flex-grow">
+            <table class="table hover fixed" width="100%">
+                <colgroup>
+                    <col width="5%"> <!-- empid -->
+                    <col width="15%"> <!-- full_name -->
+                    <col width="10%"> <!-- username -->
+                    <col width="10%"> <!-- gender -->
+                    <col width="15%"> <!-- department -->
+                    <col width="15%"> <!-- designation -->
+                    <col width="10%"> <!-- confirmation-->
+                    <col width="15%"> <!-- date of joining-->
+                    <col width="5%"> <!-- edit -->
+                </colgroup>
+                <tbody id="all_employees"></tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/employee_manager.js"></script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Leave Manager</div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Leave Application -->
+    <form class="modal flex-column flex-screen-center" method="post" onsubmit="apply_leave(this); return false"
+          autocomplete="off" id="apply_leave">
+        <div class="dialog w40 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Leave Application</div>
+                <div class="close" onclick="hide_modal('apply_leave')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border">
+                    <tbody>
+                    <tr>
+                        <th>Leave Type</th>
+                        <td>
+                            <select name="leave_type">
+                                <option value="paid_leave">Paid Leave</option>
+                                <option value="casual_leave">Casual Leave</option>
+                                <option value="comp_off">Comp Off</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>From Date</th>
+                        <td>
+                            <input type="text" name="from_date" class="datetime" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>To Date</th>
+                        <td>
+                            <input type="text" name="to_date" class="datetime" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Reason</th>
+                        <td>
+                            <textarea name="reason" rows="4" required></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-column flex-grow">
+
+        <!-- Tabs -->
+        <div class="tabs flex-row flex-no-shrink">
+            <div class="tab active" onclick="show_tab(this, 'my_leaves')">My Leave</div>
+            <div class="tab" onclick="show_tab(this, 'all_leaves', get_all_leaves)">All Leaves</div>
+            <div class="tab" onclick="show_tab(this, 'all_comp_offs', get_all_comp_offs)">All Comp Offs</div>
+            <div class="tab" onclick="show_tab(this, 'all_late_marks', get_all_late_marks)">All Late In</div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-grow">
+            <div class="tab-content p10 flex-grow flex-column active" data-tab="my_leaves">
+                <div class="flex-row">
+                    <div class="flex-grow">
+                        <h2>Leave Count</h2>
+                    </div>
+                    <div class="p10">
+                        <button onclick="show_modal('apply_leave')">Apply Leave</button>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="bg-grey">
+                    <tr>
+                        <th>Paid Leaves</th>
+                        <th>Casual Leaves</th>
+                        <th>Comp Offs</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="paid_leave_count">0</td>
+                        <td id="casual_leave_count">0</td>
+                        <td id="comp_off_count">0</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br><br>
+                <h2>Leave Log</h2>
+                <table class="table hover">
+                    <thead class="bg-grey">
+                    <tr>
+                        <th>Created On</th>
+                        <th>Total Days</th>
+                        <th>Leave Type</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+                    <tbody id="leave_log"></tbody>
+                </table>
+            </div>
+            <div class="tab-content p10 flex-grow flex-column " data-tab="all_leaves">
+                <table class="table hover">
+                    <thead class="bg-grey">
+                    <tr>
+                        <th>Employee</th>
+                        <th>Lead</th>
+                        <th>Applied On</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Days</th>
+                        <th>Status</th>
+                        <th>Leave Type</th>
+                        <th>Reason</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="all_leaves"></tbody>
+                </table>
+            </div>
+            <div class="tab-content p10 flex-grow flex-column " data-tab="all_comp_offs">
+                <table class="table hover">
+                    <thead class="bg-grey">
+                    <tr>
+                        <th></th>
+                        <th>Employee</th>
+                        <th>Lead</th>
+                        <th>Date</th>
+                        <th>Days</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                    </tr>
+                    </thead>
+                    <tbody id="all_comp_offs"></tbody>
+                </table>
+            </div>
+            <div class="tab-content p10 flex-grow flex-column " data-tab="all_late_marks">
+                <table class="table hover">
+                    <thead class="bg-grey">
+                    <tr>
+                        <th>Employee</th>
+                        <th>Lead</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                    </tr>
+                    </thead>
+                    <tbody id="all_late_marks"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/leave_manager.js"></script>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Team Manager</div>
+{% endblock %}
+
+{% block modals %}
+
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_new_team(this); return false" id="add_new_team">
+        <div class="dialog w30 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add New Team</div>
+                <div class="close" onclick="hide_modal('add_new_team')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table fixed no-border" width="100%">
+                    <colgroup>
+                        <col width="40%">
+                        <col width="60%">
+                    </colgroup>
+                    {% if user.is_superuser %}
+                        <tr>
+                            <th>Location</th>
+                            <td>
+                                <select name="location_id" id="select_location_id"></select>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Department</th>
+                        <td>
+                            <select name="department_id" id="new_team_department" class="block" required="required">
+                                <option data-placeholder=true></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Team Lead</th>
+                        <td>
+                            <select name="lead_id" id="new_team_lead" class="block" required="required">
+                                <option data-placeholder=true></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Shift Time</th>
+                        <td>
+                            <select name="shift_id" id="new_team_shift" class="block" required="required">
+                                <option data-placeholder=true></option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+<style>
+    * {
+  box-sizing:border-box;
+}
+
+html,body {
+  min-height:100%;
+  height:100%;
+  background-size:cover;
+  background-position:top center;
+  font-family:helvetica neue, helvetica, arial, sans-serif;
+  font-weight:200;
+  &.modal-active {
+    overflow: hidden;
+  }
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="flex-grow flex-row">
+
+        <!--Employees List-->
+        <div class="wp20 flex-column p10">
+            <input type="text" value="All Employees" readonly="readonly" class="team-all-employees-list">
+            <ul class="flex-grow team-employees-list" id="all_employees" data-team_id="0"
+                ondrop='add_team_member(event, this)' ondragover='allowDrop(event)' style="height: 100%;"></ul>
+        </div>
+
+        <!--All Teams-->
+        <div class="wp80 flex-column">
+            <div class="flex-row flex-no-shrink p10">
+                <div class="flex-grow"></div>
+                <div class="flex-row">
+                    {% if user.is_superuser %}
+                        <!-- filter location -->
+                        <div class="dropdown">
+                            <button class="filter-title bold">Filter Location</button>
+                            <div class="flex-grow filter-menu" id="filter__location_id">
+                                <label class="block bold">
+                                    <input type="checkbox" onchange="apply_filters('location_id', this)"
+                                           checked="checked"><span>Select All</span>
+                                </label>
+                            </div>
+                        </div>
+                    {% endif %}
+                    &ensp;&ensp;
+                    <!-- filter by department -->
+                    <div class="dropdown">
+                        <button class="filter-title">Filter: Department</button>
+                        <div class="flex-grow filter-menu" id="filter__department_id">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('department_id', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                        </div>
+                    </div>
+                    &ensp;
+                    <div>
+                        <button id="model_one" class="p5" onclick="show_modal('add_new_team')">
+                            Add New Team&ensp;<i class="fa fa-plus fa-fw"></i>
+                        </button>
+                    </div>
+                    &ensp;
+                    <div class="dropdown">
+                        <div class="icon list"></div>
+                        <div class="menu">
+                            <a href="/team_builder/download_as_csv/">
+                                <div class="item">Download as CSV</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-grow flex-row flex-wrap p10" id="all_teams">
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/team_manager.js"></script>
+{% endblock %}

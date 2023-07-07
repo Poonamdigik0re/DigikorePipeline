@@ -1,0 +1,123 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Site Sync</div>
+{% endblock %}
+
+{% block modals %}
+
+    <div class="modal flex-column flex-screen-center" id="eta_calculator">
+        <div class="dialog w40 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">ETA Calculator</div>
+                <div class="close" onclick="hide_modal('eta_calculator')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Internet Speed (Gbps)</th>
+                        <td>
+                            <input type="number" id="eta_speed" value="1" onchange="calculate_eta()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Efficiency %</th>
+                        <td>
+                            <input type="number" id="eta_efficiency" value="80" onchange="calculate_eta()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Size (Gb)</th>
+                        <td>
+                            <input type="number" id="eta_size" value="0" onchange="calculate_eta()">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ETA</th>
+                        <td id="calculated_eta"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="flex-no-shrink flex-row p10">
+        <div class="flex-grow"></div>
+        <button onclick="fix_sig_submitted()">Fix Signiant Queue</button>&ensp;
+        <button onclick="reload()">Reload Data</button>&ensp;
+        <button onclick="show_modal('eta_calculator')">ETA Calculator</button>
+    </div>
+    <div class="flex-grow flex-row">
+        <!-- pnq status breakdown -->
+        <div class="p10 flex-1 border-right">
+            <h3>PNQ - Status Breakdwon</h3>
+            <table class="table hover">
+                <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Count</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody id="pnq_status_breakdown">
+                </tbody>
+            </table>
+        </div>
+        <!-- lax status breakdown -->
+        <div class="p10 flex-1 border-right">
+            <h3>LAX - Status Breakdwon</h3>
+            <table class="table hover">
+                <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Count</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody id="lax_status_breakdown">
+                </tbody>
+            </table>
+        </div>
+        <!-- pnq project breakdown -->
+        <div class="p10 flex-1 border-right">
+            <h3>PNQ - Project Breakdwon</h3>
+            <table class="table hover">
+                <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Count</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody id="pnq_project_breakdown">
+                </tbody>
+            </table>
+        </div>
+        <!-- lax project breakdown -->
+        <div class="p10 flex-1">
+            <h3>LAX - Project Breakdwon</h3>
+            <table class="table hover">
+                <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Count</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody id="lax_project_breakdown">
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/site_sync.js"></script>
+{% endblock %}

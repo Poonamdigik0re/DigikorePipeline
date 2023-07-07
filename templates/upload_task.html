@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+<!--    <div class="title p10 bold">Tasks List</div>-->
+{% endblock %}
+
+{% block modals %}
+
+{% endblock %}
+
+{% block content %}
+<div class="flex-column p10">
+    <div class="flex-no-shrink flex-row">
+        <div class="flex-grow font-xl bold p2"></div>
+        <div class="flex-row p2">
+            {% if perms.base.tasks_list %}
+            <form action="/task_list/upload_task/upload_csv/" method="POST" enctype="multipart/form-data" autocomplete="off"
+                style="display: inline;">
+                {% csrf_token %}
+                <input type="file" name="csv_file" id="csv_file" required>
+                <button type="submit" style="margin-right: 5px;">Upload</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="flex-no-shrink">
+        <table id="editable-table" style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr>
+                    {% for header in data.0 %}
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; background-color: #f2f2f2; color: black;">
+                        {{ header }}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                {% if forloop.counter > 1 %}
+                <tr>
+                    {% for value in row %}
+                    <td style="border: 1px solid #ddd; padding: 12px; text-align: left;" contenteditable="true">{{ value }}</td>
+                    <input type="hidden" name="data[]" value="{{ value }}"> <!-- Add hidden input fields for each value -->
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex-row p2">
+        <button id="update-button" style="margin-right: 5px;">Update</button>
+        <a href="/task_list/upload_task/submit_csv/">Submit</a>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/js/upload_task_CSV.js"></script>
+
+{% endblock %}
+
+
+

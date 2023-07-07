@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">My Profile</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column p10 my-profile">
+        <div class="align-center">
+            <div id="profile_picture">
+                <img src="{{ data.profile_picture|default_if_none:'/static/img/default_profile.png' }}" alt=""
+                     height="250px" width="250px">
+                <img src="/static/img/upload.png" alt="" class="upload-icon" height="150px" width="150px"
+                     onclick="document.getElementById('_profile').click()">
+
+                <form action="/my_profile/" method="post" enctype="multipart/form-data" target="_self"
+                      id="_profile_form">
+                    {% csrf_token %}
+                    <input type="file" accept=".jpg,.jpeg,.png" id="_profile" name="profile_picture"
+                           onchange="document.getElementById('_profile_form').submit()">
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <colgroup>
+                    <col width="40%">
+                    <col width="60%">
+                </colgroup>
+                <tr>
+                    <th>Full Name</th>
+                    <td>{{ data.full_name }}</td>
+                </tr>
+                <tr>
+                    <th>Date of birth</th>
+                    <td>{{ data.date_of_birth }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Joining</th>
+                    <td>{{ data.date_of_joining }}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{ data.department }}</td>
+                </tr>
+                <tr>
+                    <th>Designation</th>
+                    <td>{{ data.designation }}</td>
+                </tr>
+                <tr>
+                    <th>PAN</th>
+                    <td>{{ data.pan }}</td>
+                </tr>
+                <tr>
+                    <th>Bank Details</th>
+                    <td>{{ data.bank_details }}</td>
+                </tr>
+                <tr>
+                    <th>Office Email</th>
+                    <td>{{ data.email }}</td>
+                </tr>
+                {#                <tr>#}
+                {#                    <th>Personal Email</th>#}
+                {#                    <td>{{ data.personal_email }}</td>#}
+                {#                </tr>#}
+                <tr>
+                    <th>Address</th>
+                    <td>{{ data.address }}</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ data.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Emergency Contact</th>
+                    <td>{{ data.emergency_contact }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br><br>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/my_profile.js"></script>
+{% endblock %}

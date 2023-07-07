@@ -1,0 +1,13 @@
+*.pyc
+*.pyo
+*.sqlite3
+.idea
+__pycache__
+test.py
+test.sh
+.DS_Store
+TODO.txt
+static/admin
+static/static_root
+goaccess.html
+.sass-cache

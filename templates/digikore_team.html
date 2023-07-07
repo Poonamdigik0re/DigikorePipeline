@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Digikore Team</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column">
+        <div class="flex-row flex-no-shrink">
+            <div class="wp10 p10 bold font-xl" id="total"></div>
+            <div class="wp20 p10">
+                <select id="filter_location_id"></select>
+            </div>
+            <div class="wp20 p10">
+                <select id="filter_department_id"></select>
+            </div>
+            <div class="wp20 p10">
+                <select id="filter_designation_id"></select>
+            </div>
+        </div>
+        <div class="flex-grow p10">
+            <div class="flex-row flex-wrap" id="all_employees"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/digikore_team.js"></script>
+{% endblock %}

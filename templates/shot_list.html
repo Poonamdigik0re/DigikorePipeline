@@ -1,0 +1,217 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Shot List</div>
+{% endblock %}
+
+{% block modals %}
+      <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_new_shot(this); return false" id="add_new_shot">
+        <div class="dialog w40 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add Shot</div>
+                <div class="close" onclick="hide_modal('add_new_shot')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <input type="hidden" name="id">
+                <table class="table no-border">
+                    <tr>
+                        <th>Show Name</th>
+                        <td>
+                            <input name="name" type="text" class="block" placeholder="Enter show name" pattern="[a-zA-Z0-9_]+" required autofocus>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Sequence name</th>
+                        <td>
+                            <select name="sequence_id" id="select-sequence_name"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            <textarea name="description" cols="2" class="block" placeholder="Description"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>FPS</th>
+                        <td>
+                            <select name="shot_FPS" id="select-Shot_FPS"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Resolution</th>
+                        <td>
+                            <select name="shot_resolution" id="select-shot_resolution"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assign bid</th>
+                        <td>
+                            <input name="bids" type="text" class="block" pattern="[a-zA-Z0-9_]+" required autofocus>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Department</th>
+                        <td>
+                            <select name="department_id" id="select-department_type"></select>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input name="start_date" type="text" class="datetime block" placeholder="Start Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input name="end_date" type="text" class="datetime block" placeholder="End Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Shot Status</th>
+                        <td>
+                            <select name=shot_status_id" id="select-shot_status"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Vault URL</th>
+                        <td>
+                            <input name="vault_url" type="url" class="block" placeholder="Vault URL">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Completion</th>
+                        <td>
+                            <input type="text" name="shot_completion" class="block" placeholder="Enter completion % in number">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Annotation</th>
+                        <td>
+                            <input name="annotation" type="file" class="block" accept="image/jpeg,image/png">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Remark</th>
+                        <td>
+                            <textarea name="VFX_client_remark" cols="2" class="block" placeholder="VFX client remark"></textarea>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>Internal supervisor Remark</th>
+                        <td>
+                            <textarea name="VFX_supervisor_remark" cols="2" class="block" placeholder="Internal supervisor remark"></textarea>
+                        </td>
+                    </tr>
+                     <tr>
+                        <th>Client feedback</th>
+                        <td>
+                            <textarea name="VFX_client_feedback" cols="2" class="block" placeholder="Enter VFX description/ show remark"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Frame range</th>
+                        <td>
+                            <input name="range_frame" type="text" class="block" placeholder="Frame range">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Execution type</th>
+                        <td>
+                            <select name="execution_type" id="select-execution_type"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Internal approval by</th>
+                        <td>
+                            <select name="employee_type" id="select-employee_position"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Thumbnail</th>
+                        <td>
+                            <input name="thumbnail" type="file" class="block" accept="image/jpeg,image/png">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>JPEG/PNG image of 365x200 px resolution.</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block content %}
+     <div class="flex-grow flex-column p10">
+          <div class="flex-no-shrink flex-row">
+            <div class="flex-grow font-xl bold p2"></div>
+            <div class="flex-row p2">
+            {% if perms.base.shot_list %}
+                <div class="flex-no-shrink">
+
+<!--                    <form action="/shot_list/display_csv/" method="POST" enctype="multipart/form-data">-->
+                        <input class="browse_file" type="file" id="upload" accept=".csv" />
+<!--                        <button class="upload_csv" onclick="upload()">Upload CSV</button>-->
+                    <button onclick="window.location.href='/shot_list/upload_shot/'">UPLOAD</button>
+                        <button onclick="show_modal('add_new_shot')">Add New shot</button>
+<!--                    </form>-->
+                </div>
+                <div class="flex-no-shrink">
+
+                </div>
+            {% endif %}
+            </div>
+        </div>
+         <div class="flex-no-shrink">
+            <table class="table hover fixed" style="width:100%">
+                <thead class="flex-grow">
+
+
+                <tr>
+                    <th class="dropdown">
+                        <div class="filter-title">Show name</div>
+                        <div class="flex-grow filter-menu" id="filter__show"></div>
+                    </th>
+                    <th>Sequence</th>
+                    <th>Shot</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Resolutions</th>
+                    <th style="width: 8em; text-align: center;">Bids</th>
+                    <th style="width: 8em; text-align: center;">Actuals</th>
+                    <th class="dropdown">
+                        <div class="filter-title">Internal Approval By</div>
+                        <div class="flex-grow filter-menu" id="filter__internal__approval"></div>
+                    </th>
+                    <th class="align-center">Completion</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+         <div class="flex-grow">
+            <table class="table hover fixed" style="width:100%">
+                <tbody id="project_shot_table">
+
+                </tbody>
+            </table>
+        </div>
+     </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/shots_list.js"></script>
+{% endblock %}

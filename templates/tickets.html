@@ -1,0 +1,163 @@
+{% extends "index.html" %}
+
+{% block navbar %}
+<!--    <div class="title p10 bold">Ticket Manager</div>-->
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Add New User -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_ticket(this); return false" id="add_ticket">
+
+        <input type="hidden" name="id" value="">
+        <div class="dialog w40 h50 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Ticket Details</div>
+                <div class="close"
+                     onclick="hide_modal('add_ticket'); document.getElementById('description').style.height = '10vh'"></div>
+            </div>
+            <!-- Content -->
+            <div class="content ">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="30%">
+                        <col width="70%">
+                    </colgroup>
+                    <tbody>
+
+                    <tr>
+                        <th>Title</th>
+                        <td><input class="block" type="text" name="title" id="title"
+                                   required="required" autofocus="autofocus" placeholder="Title"></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            <textarea name="description" id="description" class="h10"
+                                      placeholder="Description" required="required" style="max-height: 20vh"
+                                      oninput="autoExpand(this)"></textarea>
+                        </td>
+                    </tr>
+                    <tr style="margin-bottom: 10px">
+                        <th>Add Attachment</th>
+                        <td>
+                            <input type="file" id="ticket_files" multiple>
+                        </td>
+                    </tr>
+                    <tr style="margin-bottom: 10px">
+                        <th>Priority</th>
+                        <td>
+                            <select name="priority_id" id="priority_id"></select>
+                        </td>
+                    </tr>
+                    <tr style="margin-bottom: 10px;">
+                        <th>Type</th>
+                        <td>
+                            <select name="type_id" id="type_id" ></select>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex-grow"></div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-align-right">
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-row flex-no-shrink">
+        <div class="p10 flex-grow">
+            <div class="page-header">Total Tickets : <span id="total_tickets"></span></div>
+        </div>
+        <div class="p10">
+            <button onclick="show_modal('add_ticket')" class="p5">Add New Ticket</button>
+        </div>
+    </div>
+
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink">
+            <table class="table fixed" width="100%">
+                <colgroup>
+                    <col width="2%"> <!-- Ticket id -->
+                    <col width="7%"> <!-- Title -->
+                    <col width="4%"> <!-- Priority -->
+                    <col width="4%"> <!-- Status -->
+                    <col width="4%"> <!-- Type-->
+                    <col width="4%"> <!-- Create On-->
+                    <col width="4%"> <!-- Create By-->
+                    <col width="4%"> <!-- Assigned To-->
+                </colgroup>
+
+                <thead class="flex-grow">
+
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Title</th>
+                    <th class="dropdown">
+                        <div class="filter-title">Priority</div>
+                        <div class="flex-grow filter-menu" id="filter__priority">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('priority_id', this); "
+                                       checked="checked" class="select_all"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+                    <th class="dropdown">
+                        <div class="filter-title">Status</div>
+                        <div class="flex-grow filter-menu" id="filter__status">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('status_id', this)"
+                                       checked="checked" class="select_all"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+                    <th class="dropdown">
+                        <div class="filter-title">Type</div>
+                        <div class="flex-grow filter-menu" id="filter__type">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('type_id', this)"
+                                       checked="checked" class="select_all"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+                    <th>Created On</th>
+                    <th>Created By</th>
+                    <th>Assigned To</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="flex-grow" style="overflow-y: scroll;">
+            <table class="table hover fixed" width="100%">
+                <colgroup>
+                    <col width="2%"> <!-- Ticket id -->
+                    <col width="7%"> <!-- Title -->
+                    <col width="4%"> <!-- Priority -->
+                    <col width="4%"> <!-- Status -->
+                    <col width="4%"> <!-- Type-->
+                    <col width="4%"> <!-- Create On-->
+                    <col width="4%"> <!-- Create By-->
+                    <col width="4%"> <!-- Assigned To-->
+                </colgroup>
+                <tbody id="tickets">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/tickets.js"></script>
+{% endblock %}

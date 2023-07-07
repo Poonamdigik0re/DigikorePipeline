@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">File Transfer</div>
+{% endblock %}
+
+{% block modals %}
+
+    <div class="modal flex-column flex-screen-center" id="file_transfer">
+        <div class="dialog w90 h90 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Transfer files between Signiant and Production</div>
+                <div class="close" onclick="hide_modal('file_transfer')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow flex-row no-padding" id="mount_points">
+                <div class="flex-1 flex-column" style="border-right: 1px solid #ddd">
+                    <div class="flex-no-shrink bg-dark-clouds flex-row p10">
+                        <div class="font-large bold" style="margin: 0.5em 0.5em 0 0">From:</div>
+                        <div class="flex-grow">
+                            <select id="select_from" onchange="load_from_drive()">
+                                <option value="/Users/omkarshinde/Documents/storage/test" selected>Data Drive</option>
+                                <option value="/digi/signiant">Signiant Drive</option>
+                                <option value="/Users/omkarshinde/Documents/storage/test2">Production Drive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex-grow flex-column" id="from_drive">
+
+                    </div>
+                </div>
+
+                <div class="flex-1 flex-column">
+                    <div class="flex-no-shrink bg-dark-clouds flex-row p10">
+                        <div class="font-large bold" style="margin: 0.5em 0.5em 0 0">To:</div>
+                        <div class="flex-grow">
+                            <select id="select_to" onchange="load_to_drive()">
+                                <option value="/Users/omkarshinde/Documents/storage/test">Data Drive</option>
+                                <option value="/digi/signiant">Signiant Drive</option>
+                                <option value="/Users/omkarshinde/Documents/storage/test2" selected>Production Drive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex-grow flex-column" id="to_drive">
+
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-no-shrink" style="border-top: 1px solid #ddd">
+                <button class="block" onclick="start_transfer()">START TRANSFER</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink flex-row">
+            <div class="flex-grow"></div>
+            <div>
+                <button onclick="get_active_transfers()">
+                    <div class="icon refresh"></div>&ensp;Reload
+                </button>
+            </div>
+            <div>&ensp;&ensp;</div>
+            <div>
+                <button onclick="show_modal('file_transfer')">ADD NEW FILE TRANSFER</button>
+            </div>
+        </div>
+        <div class="flex-no-shrink">
+            <table class="table">
+                <colgroup>
+                    <col width="12%">
+                    <col width="10%">
+                    <col width="25%">
+                    <col width="25%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="3%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>Added On</th>
+                    <th>Added By</th>
+                    <th>From Path</th>
+                    <th>To Path</th>
+                    <th>Status</th>
+                    <th>Files</th>
+                    <th>Size</th>
+                    <th>ETA</th>
+                    <th align="center">Percent</th>
+                    <th align="center"></th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="flex-grow">
+            <table class="table hover fixed">
+                <colgroup>
+                    <col width="12%">
+                    <col width="10%">
+                    <col width="25%">
+                    <col width="25%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="3%">
+                </colgroup>
+                <tbody id="active_transfers"></tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/file_transfer.js?v=20190822.3"></script>
+{% endblock %}

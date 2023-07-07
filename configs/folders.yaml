@@ -1,0 +1,49 @@
+root:
+  mount: '/digikore'
+  project: '/digikore/prod'
+  tools: '/digikore/tools'
+  proxy: /mnt/prod/media/proxy
+  thumbnail: /mnt/prod/media/thumbnail
+
+project:
+  path: '{root_project}/{name}'
+  chmod: 0o750
+  extras:
+    - path: '{project_path}/downloads'
+      chmod: 0o755
+    - path: '{project_path}/uploads'
+      chmod: 0o755
+    - path: '{project_path}/sequences'
+      chmod: 0o755
+    - path: '{project_path}/references'
+      chmod: 0o755
+    - path: '{project_path}/templates'
+      chmod: 0o755
+    - path: '{project_path}/proxies'
+      chmod: 0o755
+
+shot:
+  path: '{sequence_path}/shots/{name}'
+  chmod: 0o755
+  extras:
+    - path: '{shot_path}/tasks'
+      chmod: 0o755
+    - path: '{shot_path}/references'
+      chmod: 0o755
+    - path: '{shot_path}/templates'
+      chmod: 0o755
+
+shot_task:
+  path: '{shot_path}/tasks/{name}'
+  chmod: 0o755
+  extras:
+    - path: '{task_path}/subtasks'
+      chmod: 0o755
+    - path: '{task_path}/references'
+      chmod: 0o755
+    - path: '{task_path}/templates'
+      chmod: 0o755
+
+subtask:
+  path: '{task_path}/subtasks/{name}'
+  chmod: 0o755

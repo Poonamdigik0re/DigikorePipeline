@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Artist Utilization</div>
+{% endblock %}
+
+{% block content %}
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink flex-row">
+            <div class="wp20">
+                <select id="select_department_id"></select>
+            </div>&ensp;&ensp;
+            <div class="wp20">
+                <input id="select_date" type="text" class="datetime block" placeholder="Select Date"
+                       onchange="get_data()">
+            </div>
+            <div class="bold p5 font-large flex-grow" id="total_employees"></div>
+            <div>
+                <button onclick="download_as_csv()">Download as CSV</button>
+            </div>
+        </div>
+        <div class="flex-no-shrink">
+            <table class="table fixed wp100">
+                <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Username</th>
+                    <th>Team Lead</th>
+                    <th>Working Hours (HH:MM)</th>
+                    <th>Production Hours (HH:MM)</th>
+                    <th>Utilization %</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="flex-grow">
+            <table class="table fixed wp100 hover">
+                <tbody id="employees"></tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/artist_utilization.js"></script>
+{% endblock %}

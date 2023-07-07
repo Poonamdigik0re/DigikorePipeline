@@ -1,0 +1,13 @@
+[Unit]
+Description = Record System Information
+After = digi-tools.mount
+
+[Service]
+Type = oneshot
+ExecStart = /digi/tools/scripts/system_info.sh power-on
+ExecStop =  /digi/tools/scripts/system_info.sh power-off
+RemainAfterExit = true
+StandardError = syslog
+
+[Install]
+WantedBy = default.target

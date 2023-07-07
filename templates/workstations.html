@@ -1,0 +1,95 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column" id="page_workstations">
+        <div class="flex-no-shrink flex-row">
+            <div class="flex-grow font-xl bold p10">Total Machines: <span id="total_machines"></span></div>
+            <div class="flex-row p10">
+                <div class="font-large bold p5">CPU</div>
+                <div>
+                    <select id="filter__cpu" style="min-width: 300px"></select>
+                </div>
+                <div class="font-large bold p5">RAM</div>
+                <div>
+                    <select id="filter__ram" style="min-width: 100px"></select>
+                </div>
+                <div class="font-large bold p5">GPU</div>
+                <div>
+                    <select id="filter__gpu" style="min-width: 200px"></select>
+                </div>
+                <div class="font-large bold p5">Vendor</div>
+                <div>
+                    <select id="filter__sys_vendor" style="min-width: 150px"></select>
+                </div>
+                <div class="font-large bold p5">Product</div>
+                <div>
+                    <select id="filter__product_name" style="min-width: 150px"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex-grow flex-column p10">
+            <div class="flex-no-shrink">
+                <table class="table">
+                    <colgroup>
+                        <col width="3%">
+                        <col width="10%">
+                        <col width="6%">
+                        <col width="17%">
+                        <col width="6%">
+                        <col width="6%">
+                        <col width="6%">
+                        <col width="10%">
+                        <col width="9%">
+                        <col width="9%">
+                        <col width="9%">
+                        <col width="9%">
+                    </colgroup>
+                    <thead class="flex-grow">
+                    <tr>
+                        <th>Stat</th>
+                        <th>Hostname</th>
+                        <th>USER</th>
+                        <th>CPU</th>
+                        <th>RAM</th>
+                        <th>IP</th>
+                        <th>MAC</th>
+                        <th>HDD</th>
+                        <th>GPU</th>
+                        <th>OS</th>
+                        <th>Vendor</th>
+                        <th>Product</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="flex-grow">
+                <table class="table hover">
+                    <colgroup>
+                        <col width="3%">
+                        <col width="10%">
+                        <col width="6%">
+                        <col width="17%">
+                        <col width="6%">
+                        <col width="6%">
+                        <col width="6%">
+                        <col width="10%">
+                        <col width="9%">
+                        <col width="9%">
+                        <col width="9%">
+                        <col width="9%">
+                    </colgroup>
+                    <tbody id="workstations">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/workstations.js"></script>
+{% endblock %}

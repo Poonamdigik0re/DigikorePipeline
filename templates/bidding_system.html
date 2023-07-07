@@ -1,0 +1,464 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Bidding System</div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- ADD BID -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_bid(this); return false" id="add_bid">
+        <div class="dialog w40 h70 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add New Bid</div>
+                <div class="close" onclick="hide_modal('add_bid')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border">
+                    <colgroup>
+                        <col width="30%">
+                        <col width="70%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Client</th>
+                        <td>
+                            <select name="client_id" id="select_client_id" required></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project</th>
+                        <td>
+                            <select name="project" id="select_project_id" required></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" class="block" placeholder="Name" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project Type</th>
+                        <td>
+                            <select name="project_type_id" id="select_project_type_id" required></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Purchase Order</th>
+                        <td>
+                            <input type="text" name="purchase_order" class="block" placeholder="Purchase Order">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Invoice Number</th>
+                        <td>
+                            <input type="text" name="invoice_number" class="block" placeholder="Invoice Number">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tasks</th>
+                        <td>
+                            <select name="default_tasks" class="select-default_tasks" multiple></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input type="text" name="start_date" class="datetime" placeholder="Start Date" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input type="text" name="end_date" class="datetime" placeholder="End Date" required>
+                        </td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <th colspan="2" class="align-center">Fields for Stereo Projects</th>
+                    </tr>
+                    <tr>
+                        <th>Resolution</th>
+                        <td>
+                            <select name="resolution">
+                                <option value="1" selected>2K</option>
+                                <option value="1.25">4K</option>
+                                <option value="1.5">6K</option>
+                                <option value="2">8K</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>FPS</th>
+                        <td>
+                            <input type="number" name="fps" value="24" placeholder="FPS">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Stereo Budget</th>
+                        <td>
+                            <input type="number" name="stereo_budget" value="80" placeholder="Stereo Budget">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Stereo Minutes</th>
+                        <td>
+                            <input type="number" step="0.01" name="stereo_minutes" value="0"
+                                   placeholder="Stereo Minutes">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- EDIT BID -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_bid(this); return false" id="edit_bid">
+        <div class="dialog w40 h70 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Edit Bid</div>
+                <div class="close" onclick="hide_modal('edit_bid')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <input type="hidden" name="id">
+                <table class="table no-border">
+                    <colgroup>
+                        <col width="30%">
+                        <col width="70%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Client</th>
+                        <td>
+                            <input name="client__name" class="block" readonly/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project</th>
+                        <td>
+                            <input name="project" class="block" readonly/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input name="name" class="block" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project Type</th>
+                        <td>
+                            <input name="project_type__name" class="block" readonly>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Purchase Order</th>
+                        <td>
+                            <input type="text" name="purchase_order" class="block" placeholder="Purchase Order">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Invoice Number</th>
+                        <td>
+                            <input type="text" name="invoice_number" class="block" placeholder="Invoice Number">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tasks</th>
+                        <td>
+                            <select name="default_tasks" class="select-default_tasks" multiple></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input type="text" name="start_date" class="datetime" placeholder="Start Date" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input type="text" name="end_date" class="datetime" placeholder="End Date" required>
+                        </td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <th colspan="2" class="align-center">Fields for Stereo Projects</th>
+                    </tr>
+                    <tr>
+                        <th>Resolution</th>
+                        <td>
+                            <select name="resolution">
+                                <option value="1" selected>2K</option>
+                                <option value="1.25">4K</option>
+                                <option value="1.5">6K</option>
+                                <option value="2">8K</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>FPS</th>
+                        <td>
+                            <input type="number" name="fps" placeholder="FPS">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Stereo Budget</th>
+                        <td>
+                            <input type="number" name="stereo_budget" placeholder="Stereo Budget">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Stereo Minutes</th>
+                        <td>
+                            <input type="number" step="0.01" name="stereo_minutes" placeholder="Stereo Minutes">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- VIEW UPDATE BID RATS -->
+    <div class="modal flex-column flex-screen-center" id="bid_rates">
+        <div class="dialog w60 h60 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Bid Rates</div>
+                <div class="close" onclick="hide_modal('bid_rates')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table small-line-height fixed" style="width: 100%;">
+                    <thead>
+                    <tr class="align-center">
+                        <th class="align-left">Task Type</th>
+                        <th>Per Seat Cost</th>
+                        <th>Cost to Client</th>
+                        <th>Net Margin</th>
+                        <th>Total Bids</th>
+                        <th>Total Price</th>
+                    </tr>
+                    </thead>
+                    <tbody id="all_bid_rates"></tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="3">Totals</th>
+                        <th id="total_margin" class="align-center" title="Weighter Average"></th>
+                        <th id="total_bids" class="align-center"></th>
+                        <th id="total_price" class="align-center"></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="footer flex-row">
+                <div class="flex-grow"></div>
+                <button id="update_bid_rates">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stereo Bid Calculator -->
+    <div class="modal flex-column flex-screen-center" id="stereo_bid_calculator">
+        <div class="dialog w60 h60 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Stereo Bid Calculator</div>
+                <div class="close" onclick="hide_modal('stereo_bid_calculator')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Stereo Minutes</th>
+                        <td>
+                            <input type="number" value="1" step="0.01" id="sbc_minutes">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Stereo Budget</th>
+                        <td>
+                            <input type="number" value="80" id="sbc_budget">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>FPS</th>
+                        <td>
+                            <input type="number" value="24" id="sbc_fps">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Resolution</th>
+                        <td>
+                            <select id="sbc_resolution">
+                                <option value="1" selected>2K</option>
+                                <option value="1.25">4K</option>
+                                <option value="1.5">6K</option>
+                                <option value="2">8K</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <br/>
+                <table class="table small-line-height fixed" style="width: 100%;" id="sbc_table">
+                    <thead>
+                    <tr class="align-center">
+                        <th class="align-left">Task Type</th>
+                        <th>Per Seat Cost</th>
+                        <th>Cost to Client</th>
+                        <th>Net Margin</th>
+                        <th>Total Bids</th>
+                        <th>Total Price</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="3">Totals</th>
+                        <th id="sbc_weighted_margin" class="align-center" title="Weighted Average"></th>
+                        <th id="sbc_total_bids" class="align-center"></th>
+                        <th id="sbc_total_price" class="align-center"></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- VFX Bid Calculator -->
+    <div class="modal flex-column flex-screen-center" id="vfx_bid_calculator">
+        <div class="dialog w60 h60 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">VFX Bid Calculator</div>
+                <div class="close" onclick="hide_modal('vfx_bid_calculator')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table small-line-height fixed" style="width: 100%;" id="vbc_table">
+                    <thead>
+                    <tr class="align-center">
+                        <th class="align-left">Task Type</th>
+                        <th>Per Seat Cost</th>
+                        <th>Cost to Client</th>
+                        <th>Net Margin</th>
+                        <th>Total Bids</th>
+                        <th>Total Price</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="3">Totals</th>
+                        <th id="vbc_weighted_margin" class="align-center" title="Weighted Average"></th>
+                        <th id="vbc_total_bids" class="align-center"></th>
+                        <th id="vbc_total_price" class="align-center"></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column p10">
+        <div class="flex-row flex-no-shrink">
+            <input type="search" style="width: 250px" placeholder="Search Bid by Name"
+                   id="search_bid_name" onkeyup="apply_filters()"/>
+            <div class="flex-grow"></div>
+            <select id="filter_client" style="width: 250px"></select>&ensp;
+            <select id="filter_project" style="width: 250px"></select>&ensp;
+
+            <button onclick="show_modal('add_bid')">Add New Bid</button>&ensp;
+
+            {% if perms.base.bidding_system_bid_rate %}
+                <button onclick="show_modal('stereo_bid_calculator')">Stereo Bid Calculator</button>&ensp;
+                <button onclick="show_modal('vfx_bid_calculator')">VFX Bid Calculator</button>
+            {% endif %}
+        </div>
+        <br>
+        <div class="flex-no-shrink">
+            <table class="table fixed" style="width:100%">
+                <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Project</th>
+                    <th>Name</th>
+                    <th class="dropdown">
+                        <div class="filter-title">Type</div>
+                        <div class="flex-grow filter-menu" id="filter__project_type__name">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('project_type__name', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                            <label class="block">
+                                <input type="checkbox" class="filter" checked="checked"
+                                       data-filter_key="project_type__name" data-filter_value="VFX"
+                                       onclick="apply_filters()">VFX</label>
+                            <label class="block">
+                                <input type="checkbox" class="filter" checked="checked"
+                                       data-filter_key="project_type__name" data-filter_value="Stereo"
+                                       onclick="apply_filters()">Stereo</label>
+                        </div>
+                    </th>
+                    <th class="dropdown">
+                        <div class="filter-title">Status</div>
+                        <div class="flex-grow filter-menu" id="filter__status_id">
+                            <label class="block bold">
+                                <input type="checkbox" onchange="apply_filters('status_id', this)"
+                                       checked="checked"><span>Select All</span>
+                            </label>
+                        </div>
+                    </th>
+                    <th class="align-center">Start Date</th>
+                    <th class="align-center">End Date</th>
+                    <th style="width: 50px">Edit</th>
+                    <th style="width: 50px">Shots</th>
+                    {% if perms.base.bidding_system_bid_rate %}
+                        <th style="width: 50px">Cost</th>
+                    {% endif %}
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="flex-grow">
+            <table class="table small-line-height fixed hover" style="width: 100%">
+                <tbody id="all_bids">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/bidding_system.js?v=20191009.4"></script>
+{% endblock %}

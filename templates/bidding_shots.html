@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Bidding System</div>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/libs/jexcel/jexcel.min.css?v=3.4.4">
+    <link rel="stylesheet" href="/static/libs/jexcel/jsuites.css">
+{% endblock %}
+
+
+{% block content %}
+
+    <input type="file" accept=".csv" style="display: none;" id="load_csv">
+
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink flex-row">
+            <div class="wp30">
+                <a href="/bidding_system/" class="icon arrow-left"></a>
+                <span class="font-xl">{{ client }} : {{ project }}</span>
+            </div>
+            <div class="flex-grow"></div>
+            <div class="flex-row">
+                <div>
+                    <a href="download_bidshots/" download>
+                        <button>Download CSV</button>
+                    </a>
+                    <button onclick="save_bidshots()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div id="spreadsheet" class="flex-grow"></div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/libs/jexcel/jexcel.min.js?v=3.4.4"></script>
+    <script type="text/javascript" src="/static/libs/jexcel/jsuites.js"></script>
+    <script type="text/javascript" src="/static/js/bidding_shots.js"></script>
+{% endblock %}

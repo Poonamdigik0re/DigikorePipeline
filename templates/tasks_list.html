@@ -1,0 +1,224 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+<!--    <div class="title p10 bold">Tasks List</div>-->
+{% endblock %}
+
+{% block modals %}
+     <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_new_task(this); return false" id="add_new_task">
+        <div class="dialog w40 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add Task</div>
+                <div class="close" onclick="hide_modal('add_new_task')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <input type="hidden" name="id">
+                <table class="table no-border">
+                    <tr>
+                        <th>Task Name</th>
+                        <td>
+                            <input name="task_name" type="text" class="block" placeholder="Enter task name" pattern="[a-zA-Z0-9_]+" required autofocus>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>Assign bid</th>
+                        <td>
+                            <input name="assign_bid" type="text" class="block" pattern="[a-zA-Z0-9_]+" required autofocus>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Actuals</th>
+                        <td>
+                            <input name="actuals" type="text" class="block" pattern="[a-zA-Z0-9_]+" required autofocus>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Department</th>
+                        <td>
+                            <select name="department_id" id="select_department_id"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Project</th>
+                        <td>
+                            <select name="project_id" id="select_project_id"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assign To</th>
+                        <td>
+                            <select name="assignee_id" id="select_task_assignee"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Task Status</th>
+                        <td>
+                            <select name="task_status_id" id="select-task_statuses"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Priority</th>
+                        <td>
+                            <select name="task_priority" id="select-task_priority"></select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            <textarea name="description" cols="2" class="block" placeholder="Description"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Delivered Version</th>
+                        <td>
+                            <input name="delivered_version" type="text" class="block" placeholder="Delivered version">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input name="start_date" type="text" class="datetime block" placeholder="Start Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input name="end_date" type="text" class="datetime block" placeholder="End Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Due Date</th>
+                        <td>
+                            <input name="due_date" type="text" class="datetime block" placeholder="Due Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Scope of work</th>
+                        <td>
+                            <textarea name="scope_of_work" cols="2" class="block" placeholder="Scope of work"></textarea>
+                        </td>
+                    </tr>
+
+                     <tr>
+                        <th>Start Frame</th>
+                        <td>
+                            <input name="start_frame" type="text" class="block" placeholder="Start Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Frame</th>
+                        <td>
+                            <input name="end_frame" type="text" class="block" placeholder="End Frame">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Working First Frame</th>
+                        <td>
+                            <input name="working_first_frame" type="text" class="block" placeholder="Working First Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working Last Frame</th>
+                        <td>
+                            <input name="working_last_frame" type="text" class="block" placeholder="Working Last Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Thumbnail</th>
+                        <td>
+                            <input name="thumbnail" type="file" class="block" accept="image/jpeg,image/png">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>JPEG/PNG image of 365x200 px resolution.</td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block content %}
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink flex-row">
+            <div class="flex-grow" style="overflow: inherit;">
+                <div class="">
+                    <select id="filter_project" style="width: 200px"></select>
+                </div>
+            </div>
+            <div class="flex-row p2">
+            {% if perms.base.tasks_list %}
+                <div class="flex-no-shrink">
+        <!--
+        <button class="p5 upload_csv" onclick="show_modal('#')">
+            Upload CSV<i class="fa fa-plus fa-fw"></i>
+        </button>
+        -->             {% csrf_token %}
+                    <button onclick="show_modal('add_new_task')" style="display: inline;">Add New Task</button>
+                     <button onclick="window.location.href='/task_list/upload_task'" style="margin-right: 2px;">UPLOAD</button>
+</div>
+                <div class="flex-no-shrink">
+
+                    <select id="select__user_id" class="block task_list"></select>
+
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
+        <div class="flex-no-shrink">
+            <table class="table hover fixed" style="width:100%">
+                <thead class="flex-grow">
+                <tr>
+                    <th class="dropdown">
+                        <div class="filter-title">Project</div>
+                        <div class="flex-grow filter-menu" id="filter__projects"></div>
+                    </th>
+                    <th>Sequence</th>
+                    <th>Shot</th>
+                    <th>Task</th>
+                    <th>Subtask</th>
+                    <th>Task Type</th>
+                    <th style="width: 8em; text-align: center;">Bids</th>
+                    <th style="width: 8em; text-align: center;">Actuals</th>
+                    <th class="dropdown">
+                        <div class="filter-title">Task Status</div>
+                        <div class="flex-grow filter-menu" id="filter__task__status"></div>
+                    </th>
+                    <th class="align-center">Assignee</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="flex-grow">
+            <table class="table hover fixed" style="width:100%">
+                <tbody id="user_tasks_table">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/tasks_list.js"></script>
+{% endblock %}

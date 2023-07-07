@@ -1,0 +1,564 @@
+@for $i from 1 to 21 {
+  .w#{$i*5} {
+    width: #{$i*5}vw;
+  }
+  .h#{$i*5} {
+    height: #{$i*5}vh;
+  }
+  .wp#{$i*5} {
+    width: #{$i*5%};
+  }
+  .hp#{$i*5} {
+    height: #{$i*5%};
+  }
+}
+
+.wp2 {
+  width: 2%;
+}
+
+%text-overflow, .text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.border-top {
+  border-top: 1px solid $border-color;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $border-color;
+}
+
+.border-right {
+  border-right: 1px solid $border-color;
+}
+
+.border {
+  border: 1px solid $border-color;
+
+  &.round {
+    border-radius: 0.25em;
+  }
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.font-small {
+  font-size: 80%;
+}
+
+.font-large {
+  font-size: 120%;
+}
+
+.font-xl {
+  font-size: 140%;
+  vertical-align: middle;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.p10 {
+  padding: 1em;
+}
+
+.p5 {
+  padding: 0.5em 1em;
+}
+
+.p25 {
+  padding: 0.25em 0.5em;
+}
+
+.title {
+  font-size: 125%;
+}
+
+.block {
+  display: block;
+}
+
+.hyperlink {
+  text-decoration: underline;
+  color: -webkit-link
+}
+
+.clickable {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: $green;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.allow-overflow {
+  overflow: visible !important;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.page-header {
+  font-size: 200%;
+}
+
+.highlighted {
+  background-color: #fff2db !important;
+}
+
+.close {
+  width: 2em;
+  background: url('/static/img/close.png') no-repeat center center;
+}
+
+.video-close {
+  background: url(/static/img/close.png) no-repeat center center;
+  background-size: 4em;
+  position: relative;
+  width: 4em;
+  height: 4em;
+  right: -31vw;
+  cursor: pointer;
+}
+
+.search {
+  background: url('/static/img/search.png') no-repeat center right;
+  background-size: 1em;
+  background-position-x: 98%;
+}
+
+.icon {
+  width: 2em;
+  margin: 0 0.5em;
+  height: 2em;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+
+  @each $name in caret-down caret-right collapse expand {
+    &.#{$name} {
+      background: url('/static/img/#{$name}.png') no-repeat center center;
+      background-size: 1em;
+    }
+  }
+
+  @each $name in mail new-mail {
+    &.#{$name} {
+      background: url('/static/img/#{$name}.png') no-repeat center center;
+      background-size: 2em;
+    }
+  }
+
+  @each $name in add list edit note attachment trash save download change_log plus forward folder file left copy play restricted open refresh usd lock info cancel {
+    &.#{$name} {
+      background: url('/static/img/#{$name}.png') no-repeat center center;
+      background-size: 1.5em;
+    }
+  }
+
+  &.arrow-left {
+    background: url('/static/img/arrow-left.png') no-repeat center center;
+    background-size: 2em;
+    width: 2em;
+    height: 2.6em;
+  }
+}
+
+button .icon {
+  background-size: 1em !important;
+  width: 1em;
+  height: 1em;
+  margin: 0;
+}
+
+.badge {
+  background: red;
+  color: white;
+  display: inline-block;
+  padding: 0 0.5em;
+  border-radius: 2em;
+  font-weight: bold;
+}
+
+.dropdown {
+  position: relative;
+  user-select: none;
+
+  &:hover > .menu {
+    display: block;
+  }
+
+  &:hover > .filter-menu {
+    display: flex;
+  }
+
+  .menu, .filter-menu {
+    display: none;
+    white-space: nowrap;
+    z-index: 10000;
+    box-shadow: 0 2px 4px $shadow;
+    position: absolute;
+    line-height: 2em;
+  }
+
+  .menu {
+    color: black;
+    min-width: 100px;
+    text-align: right;
+    right: 0;
+
+    .item {
+      background-color: darken($bg-color, 5);
+      padding: 0.5em 1em;
+      cursor: pointer;
+      display: block;
+
+      &:hover {
+        background-color: darken($bg-color, 10);
+      }
+    }
+
+    .item.divider {
+      border-bottom: 1px solid $border-color;
+      padding: 0;
+    }
+  }
+
+  .filter-title {
+    background: url('/static/img/filter.png') no-repeat center right;
+    background-size: 1em;
+    background-origin: content-box;
+
+    &::after {
+      content: " ";
+      padding: 1em;
+    }
+  }
+
+  .filter-menu {
+    //padding: 1em 2em 1em 1em;
+    font-weight: normal;
+    color: black;
+    left: 0;
+    min-width: 100%;
+    height: 250px;
+    flex-direction: column;
+    background-color: $bg-color;
+
+    input[type=checkbox] {
+      margin: 0 1em;
+      height: 1.25em;
+      width: 1.25em;
+      vertical-align: middle;
+    }
+
+    label.block {
+      padding: 0.25em 0;
+
+      &:hover {
+        background-color: $clouds;
+      }
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 11000;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: none;
+
+  &.dark {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  input, select, textarea {
+    width: 100%;
+  }
+
+  td {
+    padding: 0.1em 0;
+  }
+
+  .dialog {
+    background-color: $bg-color;
+    box-shadow: 0 0 10px $shadow;
+
+    .heading {
+      background-color: $navbar-bg;
+      color: $navbar-fg;
+      padding: 1em;
+    }
+
+    .content {
+      padding: 1em;
+    }
+
+    .footer {
+      padding: 1em;
+    }
+  }
+}
+
+.table {
+  border-collapse: collapse;
+  text-align: left;
+  width: 100%;
+
+  thead.flex-grow {
+    border-right: 1em solid white;
+  }
+
+  &.fixed {
+    table-layout: fixed;
+  }
+
+  &:not(.no-border) {
+    tr {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+
+  &.hover {
+    tbody > tr:hover {
+      cursor: pointer;
+      background-color: darken($bg-color, 5);
+    }
+  }
+
+  &:not(.small-line-height) tr {
+    line-height: 3em;
+  }
+
+  &.small-line-height tr {
+    line-height: 2em;
+  }
+
+  th {
+    font-weight: bold;
+    vertical-align: top;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  th, td {
+    padding: 0 0.5em;
+  }
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid $border-color;
+
+  .tab {
+    border-bottom: 1px solid white;
+    cursor: pointer;
+    padding: 1em;
+
+    &:hover {
+      border-bottom: 1px solid $orange;
+      transition: border-bottom-color 200ms linear;
+    }
+
+    &.active {
+      background-color: $border-color;
+      border-bottom: 1px solid $orange;
+    }
+  }
+}
+
+.tab-content {
+  display: none;
+
+  &.active {
+    display: flex;
+  }
+}
+
+.context-menu {
+  min-width: 100px;
+  position: fixed;
+  z-index: 10000;
+  background: $bg-color;
+  box-shadow: 0 2px 4px $shadow;
+
+  div {
+    padding: 0.5em;
+    cursor: pointer;
+
+    &:hover {
+      background-color: darken($bg-color, 20);
+    }
+  }
+}
+
+.attendance {
+  &.IN {
+    background-color: #56f7ab;
+  }
+
+  &.PR {
+    background-color: dodgerblue;
+    color: #FFFFFF;
+  }
+
+  &.AB, &.LOP {
+    background-color: #f75656;
+    color: #FFFFFF;
+  }
+
+  &.IA {
+    background-color: #f75656;
+    color: #FFFFFF;
+  }
+
+  &.LE {
+    background-color: #56dbf7;
+  }
+
+  &.LT {
+    background-color: #ffa200;
+  }
+
+  &.border {
+    border: 1px solid $border-color;
+  }
+}
+
+// slider switch
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 12em;
+  height: 2.5em;
+  margin-top: 2px;
+
+  &.toggle_projects .slider::after {
+    content: "Active Projects";
+  }
+
+  &.toggle_projects input:checked + .slider::after {
+    content: "Inactive Projects"
+  }
+
+  &.toggle_view .slider::after {
+    content: "Project View";
+  }
+
+  &.toggle_view input:checked + .slider::after {
+    content: "Timeline View"
+  }
+
+  input {
+    display: none;
+
+    &:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    &:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    &:checked + .slider::before {
+      -webkit-transform: translateX(9.5em);
+      -ms-transform: translateX(9.5em);
+      transform: translateX(9.5em);
+    }
+
+    &:checked + .slider::after {
+      color: white;
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+
+    &::after {
+      position: relative;
+      top: 0.75em;
+      left: 2.5em;
+    }
+
+    &::before {
+      border-radius: 50%;
+      position: absolute;
+      content: "";
+      height: 1.5em;
+      width: 1.5em;
+      bottom: 0.5em;
+      left: 0.5em;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+  }
+}
+
+.ss-main .ss-multi-selected .ss-values .ss-value {
+  height: 2em;
+}
+
+.ss-main .ss-content .ss-list .ss-option {
+  padding: 0 1em;
+  line-height: 2em;
+}
+
+.ss-main .ss-content .ss-list {
+  box-shadow: 0 3px 4px #ddd;
+}
+
+.flatpickr-calendar {
+  z-index: 11000;
+}
+
+table.jexcel > tbody > tr > td.readonly {
+  color: black
+}

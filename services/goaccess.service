@@ -1,0 +1,15 @@
+[Unit]
+Description = GoAccess
+After = network.target
+
+[Service]
+ExecStart = /usr/local/bin/goaccess -p /opt/repos/digikoreCentral/configs/goaccess.conf
+PIDFile = /var/run/goaccess.pid
+Restart = always
+RestartSec = 10
+KillSignal = SIGQUIT
+Type = forking
+StandardError = syslog
+
+[Install]
+WantedBy = default.target

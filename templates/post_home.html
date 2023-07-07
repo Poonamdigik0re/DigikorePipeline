@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <form class="flex-grow flex-column p10" onsubmit="vote(this); return false">
+        <h1 id="post_title">
+
+        </h1>
+        <div class="flex-grow" id="post_options">
+
+        </div>
+        <button class="p10 bg-blue align-center font-xl" type="submit">Submit Vote</button>
+    </form>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/posts.js?20191107.1"></script>
+{% endblock %}

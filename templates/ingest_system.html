@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Ingest System</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-column flex-grow">
+        <div class="flex-row flex-no-shrink">
+            <div class="p10">
+                <select id="select_project" style="width: 200px"></select>
+            </div>
+            <div class="p10">
+                <button id="browse_storage" style="width: 200px">Browse Storage</button>
+            </div>
+            <div class="flex-grow"></div>
+            <div class="p10">
+                <button onclick="start_ingest()" style="width: 200px">Start Ingest</button>
+            </div>
+        </div>
+        <div class="flex-grow flex-column p10">
+            <div class="flex-no-shrink">
+                <table class="table hover">
+                    <colgroup>
+                        <col width="25%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="5%">
+                        <col width="5%">
+                        <col width="5%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Parent Type</th>
+                        <th>Parent Name</th>
+                        <th>File Type</th>
+                        <th>Version</th>
+                        <th>First Frame</th>
+                        <th>Last Frame</th>
+                        <th>Padd</th>
+                        <th>Ext</th>
+                        <th>Del</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="flex-grow">
+                <table class="table hover">
+                    <colgroup>
+                        <col width="25%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="5%">
+                        <col width="5%">
+                        <col width="5%">
+                    </colgroup>
+                    <tbody id="tbody_files">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/browser.js"></script>
+    <script type="text/javascript" src="/static/js/ingest_system.js"></script>
+{% endblock %}

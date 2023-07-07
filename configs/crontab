@@ -1,0 +1,56 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+# For details see man 4 crontabs
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+# get license usage
+# */5 * * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py get_license_usage
+
+# add paid leave for the previous month
+# 0 0 1 * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py add_paid_leaves
+# 0 0 1 * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py add_casual_leaves
+
+# fetch attendance in every 5 mins
+# */5 * * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/attendance.py
+
+# mark absents
+#0 9,21 * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py mark_absent
+# 1 0 * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py mark_absent_all
+
+# mark daily compoffs
+# 30 23 * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py mark_compoff
+
+# update msi database
+# 0 0 * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py sync_msi
+
+# leaves lapse on end on year
+# 0 23 31 12 * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/cronjob.py annual_leave_lapse
+
+# custom crons
+# 0 * * * * root /usr/bin/mysqldump -u django -pAll0wM$ digikoreCentral > "/digikore/tools/backups/central/digikoreCentral-$(date +%H).mysql"
+# 0 * * * * root /bin/bash /digikore/tools/backups/migrate/dump.sh
+
+# update the Resource Cache every night
+45 24 * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/resource_cache.py
+*/15 * * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/resource_cache_weekly.py
+
+# cleanup unwanted tasks
+0 0,6,12,18 * * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/delete_msi_tasks.py
+
+# Reports
+0 12 27 * * root /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/scripts/auto_reports.py monthly_actuals_utilization
+
+############################################################
+## DO NOT UPDATE IT DIRECTLY IN /etc/crontab, its a symlink
+############################################################
+

@@ -1,0 +1,24 @@
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/opt/repos/digikoreCentral
+Environment="CELERY_BIN=/opt/venv/digikoreCentral/bin/celery"
+Environment="CELERY_APP=utils"
+Environment="CELERYD_NODES='w1'"
+Environment="CELERYD_PID_FILE=/var/run/celery_%n.pid"
+Environment="CELERYD_LOG_FILE=/var/log/celery_%n%I.log"
+Environment="CELERYD_LOG_LEVEL=INFO"
+Environment="CELERYD_OPTS="
+Environment="C_FORCE_ROOT='true'"
+
+ExecStart=/bin/sh -c '${CELERY_BIN} multi start ${CELERYD_NODES} -A ${CELERY_APP} --pidfile=${CELERYD_PID_FILE} \
+  --logfile=${CELERYD_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} --task-events ${CELERYD_OPTS}'
+ExecStop=/bin/sh -c '${CELERY_BIN} multi stopwait ${CELERYD_NODES} --pidfile=${CELERYD_PID_FILE}'
+ExecReload=/bin/sh -c '${CELERY_BIN} multi restart ${CELERYD_NODES} -A ${CELERY_APP} --pidfile=${CELERYD_PID_FILE} \
+  --logfile=${CELERYD_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL} --task-events ${CELERYD_OPTS}'
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>2FA QR code generator</title>
+
+    <meta charset="utf-8">
+    <meta name="author" content="Stefan Sundin">
+    <meta name="description" content="2FA QR code generator">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon">
+    <link rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html" title="GNU GPL 3.0 or later">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:500,400">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/lrsjng/jquery-qrcode/v0.14.0/dist/jquery-qrcode.min.js"
+            integrity="sha384-BrZGf2D/R3HVPz9JtfTVrbaUyVVaFKZWO2MTcoL80nBcGZBsRhbjCSsFXUGAEO45"
+            crossorigin="anonymous"></script>
+    <style>
+        body {
+            padding: 0 15px;
+            margin-bottom: 100px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 770px;
+            }
+        }
+
+        header {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            margin-top: 1em;
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+
+        #uri {
+            color: gray;
+        }
+
+        #uri:focus {
+            color: inherit;
+        }
+
+        #qr {
+            padding: 25px;
+            text-align: center;
+        }
+
+        #app {
+            padding: 10px 20px;
+            background-color: white;
+            border-top: 15px solid #f2f2f2;
+            border-bottom: 15px solid #f2f2f2;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        #app_code {
+            color: #4285f4;
+            font-weight: 500;
+            font-size: xx-large;
+        }
+
+        #app_label {
+            color: #757575;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1 itemprop="name">2FA QR code generator</h1>
+    <h2 itemprop="description">Save your 2FA secrets, then use this to scan them again.</h2>
+</header>
+
+<div class="container">
+    <hr>
+
+    <p>This is a 2FA QR code generator made in JavaScript that helps you make QR codes from 2FA secrets.</p>
+
+    <hr>
+
+    <p>
+        <select class="form-control" id="type">
+            <option value="totp">Time based (TOTP)</option>
+            <option value="hotp">Counter based (HOTP)</option>
+        </select>
+    </p>
+
+    <p><input class="form-control" type="search" id="secret" placeholder="Secret &mdash; Required" spellcheck="false">
+    </p>
+    <p><input class="form-control" type="search" id="label" placeholder="Label &mdash; Required" spellcheck="false"></p>
+    <p><input class="form-control" type="search" id="issuer" placeholder="Issuer &mdash; Optional" list="issuers"
+              spellcheck="false"></p>
+    <p><input class="form-control" type="search" id="counter" placeholder="Initial counter &mdash; Defaults to 0"
+              pattern="\d+" spellcheck="false"></p>
+
+    <div class="custom-control custom-checkbox">
+        <p><input class="custom-control-input" type="checkbox" id="adv_options"><label class="custom-control-label"
+                                                                                       for="adv_options">Show advanced
+            settings</label></p>
+    </div>
+
+    <div id="adv_options_container">
+        <p>Please note that advanced settings are not supported by the Google Authenticator app yet: all advanced
+            settings are ignored, and default values are used. <a
+                    href="https://www.yubico.com/products/services-software/download/yubico-authenticator/">Yubico
+                Authenticator</a> support these advanced settings.</p>
+        <p>
+            <select class="form-control" id="algorithm">
+                <option value="SHA1">SHA1 algorithm (Default)</option>
+                <option value="SHA256">SHA256 algorithm</option>
+                <option value="SHA512">SHA512 algorithm</option>
+            </select>
+        </p>
+        <p>
+            <select class="form-control" id="digits">
+                <option value="6">6 digits (Default)</option>
+                <option value="8">8 digits</option>
+            </select>
+        </p>
+        <p><input class="form-control" type="search" id="period"
+                  placeholder="Valid period, in seconds &mdash; Defaults to 30" pattern="\d+" spellcheck="false"></p>
+    </div>
+
+    <hr>
+    <p><input class="form-control" type="text" id="uri" placeholder="otpauth://" spellcheck="false"></p>
+
+    <div id="qr"></div>
+
+    <script>
+        // make a nice QR code as the favicon
+        $("#qr").empty().qrcode({
+            render: "image",
+            text: "stefansundin"
+        });
+        $("link[rel=icon]").prop("href", $("#qr img").prop("src"));
+
+        function adv_options_changed() {
+            $("#adv_options_container").toggle($("#adv_options").prop("checked"));
+            $("#period").toggle($("#type").val() == "totp");
+        }
+
+        $("#adv_options").on("change keyup", adv_options_changed);
+
+        function type_changed() {
+            var type = $("#type").val();
+            if (type == "totp") {
+                $("#counter").hide();
+            }
+            else {
+                $("#counter").show();
+            }
+            adv_options_changed();
+        }
+
+        type_changed();
+        $("#type").on("change keyup", type_changed);
+
+        function generate_uri() {
+            var type = $("#type").val();
+            var secret = $("#secret").val().replace(/ /g, '');
+            var label = $("#label").val();
+            var issuer = $("#issuer").val();
+
+            var uri = `otpauth://${type}/${encodeURIComponent(label)}?secret=${secret}`;
+            if (issuer != "") {
+                uri += `&issuer=${encodeURIComponent(issuer)}`;
+            }
+            uri += `algorithm=SHA256&digits=8&period=30`;
+
+            return uri;
+        }
+
+        function update_val(el, text) {
+            var start = el.selectionStart;
+            var end = el.selectionEnd;
+            el.value = text;
+            el.setSelectionRange(start, end);
+        }
+
+        function update_qr() {
+            var secret = $("#secret").val();
+            var issuer = $("#issuer").val();
+            var label = $("#label").val();
+            var uri = generate_uri();
+            if (uri != $("#uri").val()) {
+                update_val($("#uri")[0], uri);
+            }
+
+            $("#qr").empty().qrcode({
+                text: uri
+            });
+            if (label == "" && issuer == "") {
+                $("#app_label").text("Issuer (label)");
+            }
+            else {
+                $("#app_label").text(issuer == "" ? label : `${issuer} (${label})`);
+            }
+
+            // remove error on uri field
+            $("#uri").removeClass("is-invalid");
+            // mark empty required input fields
+            $("#secret").toggleClass("is-invalid", secret == "");
+            $("#label").toggleClass("is-invalid", label == "");
+        }
+
+        update_qr();
+        $("select,input[type='search'],input[type='checkbox']").on("change keyup input", update_qr);
+
+        function decode(s) {
+            return s ? decodeURIComponent(s) : undefined;
+        }
+
+        $("#uri").on("change keyup input", function () {
+            // validate and parse uri
+            var r = /^otpauth:\/\/([th]otp)\/([^?]+)\?secret=([^&]+)(?:&issuer=([^&]+))?(?:&counter=(\d+))?(?:&algorithm=(SHA1|SHA256|SHA512))?(?:&digits=(6|8))?(?:&period=(\d+))?$/.exec(this.value);
+            if (r) {
+                $("#uri").removeClass("is-invalid");
+            }
+            else {
+                $("#uri").addClass("is-invalid");
+                return;
+            }
+
+            $("#adv_options").prop("checked", r[6] != undefined || r[7] != undefined || r[8] != undefined);
+            adv_options_changed();
+
+            var uri = generate_uri();
+            if (uri == this.value) {
+                // uri did not change
+                return;
+            }
+
+            // update fields and generate a new QR code
+            $("#type").val(r[1]);
+            $("#label").val(decode(r[2]));
+            $("#secret").val(r[3]);
+            $("#issuer").val(decode(r[4]));
+            $("#counter").val(r[5] == "0" ? "" : r[5]);
+            $("#algorithm").val(r[6] || "SHA1");
+            $("#digits").val(r[7] || "6");
+            $("#period").val(r[8] == "30" ? "" : r[8]);
+            type_changed();
+            update_qr();
+        });
+    </script>
+
+    <hr>
+
+    <p>In the Google Authenticator app, it will look something like this:</p>
+
+    <div id="app">
+        <div id="app_code">123 456</div>
+        <div id="app_label">Issuer (label)</div>
+    </div>
+
+    <hr>
+</div>
+</body>
+</html>

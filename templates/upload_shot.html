@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+<!--    <div class="title p10 bold">Shot List</div>-->
+{% endblock %}
+
+
+{% block content %}
+     <div class="flex-grow flex-column p10">
+          <div class="flex-no-shrink flex-row">
+            <div class="flex-grow font-xl bold p2"></div>
+            <div class="flex-row p2">
+            {% if perms.base.shot_list %}
+                <form action="/shot_list/upload_shot/upload_csv/" method="POST" enctype="multipart/form-data" autocomplete="off"
+                style="display: inline;">
+                {% csrf_token %}
+                <input type="file" name="csv_file" id="csv_file" required>
+                <button type="submit" style="margin-right: 5px;">Upload</button>
+            </form>
+                <div class="flex-no-shrink">
+
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
+             <div class="flex-no-shrink">
+        <table id="editable-table" style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr>
+                    {% for header in data.0 %}
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left; background-color: #f2f2f2; color: black;">
+                        {{ header }}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                {% if forloop.counter > 1 %}
+                <tr>
+                    {% for value in row %}
+                    <td style="border: 1px solid #ddd; padding: 12px; text-align: left;" contenteditable="true">{{ value }}</td>
+                    <input type="hidden" name="data[]" value="{{ value }}"> <!-- Add hidden input fields for each value -->
+                    {% endfor %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+         <div class="flex-no-shrink">
+            <table class="table hover fixed" style="width:100%">
+                <thead class="flex-grow">
+
+
+                <tr>
+                    <th class="dropdown">
+                        <div class="filter-title">Show name</div>
+                        <div class="flex-grow filter-menu" id="filter__show"></div>
+                    </th>
+                    <th>Sequence</th>
+                    <th>Shot</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Resolutions</th>
+                    <th style="width: 8em; text-align: center;">Bids</th>
+                    <th style="width: 8em; text-align: center;">Actuals</th>
+                    <th class="dropdown">
+                        <div class="filter-title">Internal Approval By</div>
+                        <div class="flex-grow filter-menu" id="filter__internal__approval"></div>
+                    </th>
+                    <th class="align-center">Completion</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+         <div class="flex-grow">
+            <table class="table hover fixed" style="width:100%">
+                <tbody id="project_shot_table">
+
+                </tbody>
+            </table>
+        </div>
+     </div>
+
+    <div class="flex-row p2">
+        <button id="update-button" style="margin-right: 5px;">Update Shot</button>
+        <a href="/shot_list/upload_shot/submit_csv/">Submit Shot</a>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/Upload_shot_CSV.js"></script>
+{% endblock %}

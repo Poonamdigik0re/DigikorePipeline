@@ -1,0 +1,181 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">All Vendors</div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Add New Vendor -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_new_vendor(this); return false" id="add_new_vendor">
+        <div class="dialog w40 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add New Vendor</div>
+                <div class="close" onclick="hide_modal('add_new_vendor')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" class="block" required="required" placeholder="Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>
+                            <textarea name="address" class="block" rows="4" placeholder="Address"></textarea>
+                        </td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off" id="add_new_contact">
+        <div class="dialog w40 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add New Contact</div>
+                <div class="close" onclick="hide_modal('add_new_contact')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border">
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" required="required" placeholder="Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>
+                            <input type="text" name="title" required="required" placeholder="Title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            <input type="email" name="email" required="required" placeholder="Email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>
+                            <input type="text" name="phone" placeholder="Phone">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="flex-grow flex-row" id="page_vendors">
+
+        <div class="flex-column wp30 p10">
+            <div class="flex-no-shrink">
+                <button class="block" onclick="show_modal('add_new_vendor')">Add New Vendor</button>
+            </div>
+            <br>
+            <div class="flex-grow border" id="vendors_list" style="overflow-y: scroll">
+
+            </div>
+        </div>
+
+        <div class="flex-grow p10">
+            <div class="border round">
+                <div class="bg-clouds bold" style="padding: 1em 0.5em">INFO</div>
+                <div>
+                    <table class="table small-line-height">
+                        <colgroup>
+                            <col width="30%">
+                            <col width="70%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td id="vendor__name"></td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td id="vendor__address"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+
+            <div class="border round">
+                <div class="bg-clouds flex-row">
+                    <div class="flex-grow bold" style="padding: 1em 0.5em">CONTACTS</div>
+                    <div class="p5">
+                        <div class="icon plus" onclick="show_modal('add_new_contact')"></div>
+                    </div>
+                </div>
+                <div>
+                    <table class="table small-line-height">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_vendor_contacts"></tbody>
+                    </table>
+                </div>
+
+            </div>
+            <br>
+
+            <div class="border round">
+                <div class="bg-clouds bold" style="padding: 1em 0.5em">PROJECTS</div>
+                <div>
+                    <table class="table small-line-height">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_vendor_projects"></tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/vendors_list.js"></script>
+{% endblock %}

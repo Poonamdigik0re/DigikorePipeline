@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Transport</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow p10 flex-column">
+        <div class="flex-no-shrink flex-row">
+            <div class="flex-grow page-header">
+                Total Employees: <span id="total_employees"></span>
+            </div>
+            <div>
+                <a href="download_as_csv/" download>
+                    <button>Download as CSV</button>
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="flex-no-shrink" style="box-shadow: 0 2px 4px #dddddd">
+            <table class="table hover fixed">
+                <colgroup>
+                    <col width="9%">
+                    <col width="9%">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="10%">
+                    <col width="8%">
+                </colgroup>
+                <thead class="flex-grow">
+                <tr>
+                    <th>EMPID</th>
+                    <th>Name</th>
+                    <th>Shift</th>
+                    <th>Department</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Curr Address</th>
+                    <th>Perm Address</th>
+                    <th>Emrg Contact</th>
+                    <th>Emrg Phone</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="flex-grow">
+            <table class="table hover fixed">
+                <colgroup>
+                    <col width="9%">
+                    <col width="9%">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="8%">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="10%">
+                    <col width="8%">
+                </colgroup>
+                <tbody id="employees_list">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/transportation.js"></script>
+{% endblock %}

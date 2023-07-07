@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Project Overview</div>
+{% endblock %}
+
+{% block content %}
+    <!-- Project View-->
+    <div class="flex-column flex-grow">
+        <div class="p10">
+            <a href="/projects_list/" class="icon arrow-left"></a>
+            <span class="font-xl">{{ project_name }}</span>
+        </div>
+        <div class="flex-grow">
+            <div id="project_overview_charts"></div>
+            <br>
+            <hr>
+            <div id="project_overview_tables"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/libs/chartjs/chart.min.js"></script>
+    <script type="text/javascript" src="/static/js/projects_overview.js"></script>
+{% endblock %}

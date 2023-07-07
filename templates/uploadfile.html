@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Upload File </div>
+{% endblock %}
+
+{% block content %}
+    <div class="flex-grow flex-column p10">
+        {% if perms.base.tasks_ist %}
+            <div class="flex-no-shrink">
+                <select id="select__user_id" class="block"></select>
+            </div>
+        {% endif %}
+        <div class="flex-grow">
+            <table class="table hover fixed" style="width:100%">
+                <tbody id="user_tasks_table">
+                 
+                </tbody>
+            </table>
+            <form>
+
+                <!-- <input type="file"/> -->
+                <input name="fileToUpload" type="file" id="fileToUpload"/>
+                
+            </form>
+        </div>
+
+    </div>
+    <script>
+        $(function()
+{
+   $("#fileToUpload").on('change', 'input' ,  function(){
+   // Display image on the page for viewing
+        readURL(this,"div1");
+
+   });
+});
+
+function readURL(input , tar) {  
+if (input.files && input.files[0]) { // got sth
+
+    // Clear image container
+    $("#" + tar ).empty(); 
+
+    $.each(input.files , function(index,ff)  // loop each image 
+    {
+
+        var reader = new FileReader();
+
+        // Put image in created image tags
+        reader.onload = function (e) {
+            $('#' + tar).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(ff);
+
+    });
+}   
+    </script>
+
+{% endblock %}
+
+ {% block javascript %}
+    <script type="text/javascript" src="/static/js/tasks_list.js"></script>
+{% endblock %}

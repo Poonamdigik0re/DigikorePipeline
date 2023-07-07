@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Project Archival</div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column p10">
+        <div class="flex-no-shrink">
+            <table class="table fixed">
+                <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Status</th>
+                    <th>Marked Ready On</th>
+                    <th>Archive Started On</th>
+                    <th>Archive Started By</th>
+                    <th>Archive Completed On</th>
+                    <th>Size</th>
+                    <th class="align-center">Start Archival</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="flex-grow">
+            <table class="table fixed hover">
+                <tbody id="projects">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+
+    <script src="/static/js/project_archival.js" type="text/javascript"></script>
+
+{% endblock %}

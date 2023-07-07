@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Login As</div>
+{% endblock %}
+
+{% block content %}
+    <div class="p10 flex-grow">
+        <table class="table hover p10" width="100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Designation</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            {% for user in all_users %}
+                <tr>
+                    <td>{{ user.full_name }}</td>
+                    <td>{{ user.department__name }}</td>
+                    <td>{{ user.designation__name }}</td>
+                    <td>
+                        <a href="/login_as/?uid={{ user.user_id }}">
+                            <button>Login</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        window.onload = async () => {
+            await init();
+            hide_loading();
+        };
+    </script>
+{% endblock %}

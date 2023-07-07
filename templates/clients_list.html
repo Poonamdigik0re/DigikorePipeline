@@ -1,0 +1,189 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">All Clients</div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Add New Client -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_new_client(this); return false" id="add_new_client">
+        <div class="dialog w40 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add New Client</div>
+                <div class="close" onclick="hide_modal('add_new_client')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <input name="id" type="hidden">
+                <table class="table no-border">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" class="block" required="required" placeholder="Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>
+                            <textarea name="address" class="block" rows="4" placeholder="Address"></textarea>
+                        </td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Add new contact -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off" id="add_new_contact">
+        <div class="dialog w40 h40 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add New Contact</div>
+                <div class="close" onclick="hide_modal('add_new_contact')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <input name="id" type="hidden">
+                <table class="table no-border">
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" required="required" placeholder="Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>
+                            <input type="text" name="title" required="required" placeholder="Title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            <input type="email" name="email" required="required" placeholder="Email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>
+                            <input type="text" name="phone" placeholder="Phone">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-row" id="page_clients">
+
+        <div class="flex-column wp30 p10">
+            <div class="flex-no-shrink">
+                <button class="block" onclick="show_modal('add_new_client')">Add New Client</button>
+            </div>
+            <br>
+            <div class="flex-grow border" id="clients_list" style="overflow-y: scroll">
+
+            </div>
+        </div>
+
+        <div class="flex-grow p10">
+            <div class="border round">
+                <div class="bg-clouds flex-row">
+                    <div class="flex-grow bold" style="padding: 1em 0.5em">INFO</div>
+                    <div class="p5">
+                        <div class="icon edit" id="edit_client_info"></div>
+                    </div>
+                </div>
+                <div>
+                    <table class="table small-line-height">
+                        <colgroup>
+                            <col width="30%">
+                            <col width="70%">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td id="client__name"></td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td id="client__address"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+
+            <div class="border round">
+                <div class="bg-clouds flex-row">
+                    <div class="flex-grow bold" style="padding: 1em 0.5em">CONTACTS</div>
+                    <div class="p5">
+                        <div class="icon plus" onclick="show_modal('add_new_contact')"></div>
+                    </div>
+                </div>
+                <div>
+                    <table class="table small-line-height">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_client_contacts"></tbody>
+                    </table>
+                </div>
+
+            </div>
+            <br>
+
+            <div class="border round">
+                <div class="bg-clouds bold" style="padding: 1em 0.5em">PROJECTS</div>
+                <div>
+                    <table class="table small-line-height">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_client_projects"></tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/clients_list.js"></script>
+{% endblock %}

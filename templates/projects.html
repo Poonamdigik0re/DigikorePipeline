@@ -1,0 +1,484 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Project : <span id="project_name"></span></div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Update Shot -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" id="update_shot" autocomplete="off"
+          onsubmit="return false">
+        <div class="dialog w40 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Update Shot</div>
+                <div class="close" onclick="hide_modal('update_shot')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="40%">
+                        <col width="60%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" required="required" autofocus="autofocus" placeholder="Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <th>
+                            <textarea name="description" rows="2" class="block" placeholder="Description"></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <select name="status_id" id="select_shot_status" required="required"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="start_date" placeholder="Start Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="end_date" placeholder="End Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Turnover Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="turnover_date" placeholder="Turnover Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Client First Frame</th>
+                        <td>
+                            <input type="number" name="client_first_frame" placeholder="Client First Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Client Last Frame</th>
+                        <td>
+                            <input type="number" name="client_last_frame" placeholder="Client Last Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working First Frame</th>
+                        <td>
+                            <input type="number" name="working_first_frame" placeholder="Working First Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working Last Frame</th>
+                        <td>
+                            <input type="number" name="working_last_frame" placeholder="Working Last Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Head Handle</th>
+                        <td>
+                            <input type="number" name="head_handle" placeholder="Head Handle">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tail Handle</th>
+                        <td>
+                            <input type="number" name="tail_handle" placeholder="Tail Handle">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Source Status</th>
+                        <td>
+                            <select name="source_status_id" id="select_shot_source_status"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Source Type</th>
+                        <td>
+                            <select name="source_type_id" id="select_shot_source_type"></select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Update Task -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" id="update_task" autocomplete="off"
+          onsubmit="return false">
+        <div class="dialog w40 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Update Task</div>
+                <div class="close" onclick="hide_modal('update_task')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="40%">
+                        <col width="60%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" autofocus="autofocus" placeholder="Name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>
+                            <select name="type_id" id="select_task_type" required="required"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <select name="status_id" id="select_task_status" required="required"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Complexity</th>
+                        <td>
+                            <select name="complexity_id" id="select_task_complexity" required="required"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Priority</th>
+                        <td>
+                            <select name="priority_id" id="select_task_priority" required="required"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assignee</th>
+                        <td>
+                            <select name="assignee_id" id="select_task_assignee"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Vendor</th>
+                        <td>
+                            <select name="vendor_id" id="select_task_vendor"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <th>
+                            <textarea name="description" rows="2" class="block" placeholder="Description"></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Sup Bids</th>
+                        <td>
+                            <input type="number" name="bids" value="0" step="0.1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="start_date" placeholder="Start Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End date</th>
+                        <td>
+                            <input type="text" class="datetime" name="end_date" placeholder="End Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Turnover Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="turnover_date" placeholder="Turnover Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working First Frame</th>
+                        <td>
+                            <input type="number" name="working_first_frame" placeholder="Working First Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working Last Frame</th>
+                        <td>
+                            <input type="number" name="working_last_frame" placeholder="Working Last Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Approved Version</th>
+                        <td>
+                            <input type="number" name="approved_version" placeholder="Approved Version">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Update Selected Task -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" id="update_selected_tasks"
+          autocomplete="off" onsubmit="update_selected_tasks(this); return false">
+        <div class="dialog w40 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Update Selected Tasks</div>
+                <div class="close" onclick="hide_modal('update_selected_tasks')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="40%">
+                        <col width="60%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <select name="status_id" id="multi_select_task_status"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Complexity</th>
+                        <td>
+                            <select name="complexity_id" id="multi_select_task_complexity"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Priority</th>
+                        <td>
+                            <select name="priority_id" id="multi_select_task_priority"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assignee</th>
+                        <td>
+                            <select name="assignee_id" id="multi_select_task_assignee"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Vendor</th>
+                        <td>
+                            <select name="vendor_id" id="multi_select_task_vendor"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Sup Bids</th>
+                        <td>
+                            <input type="number" name="bids" value="" step="0.1">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="start_date" placeholder="Start Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End date</th>
+                        <td>
+                            <input type="text" class="datetime" name="end_date" placeholder="End Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Turnover Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="turnover_date" placeholder="Turnover Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working First Frame</th>
+                        <td>
+                            <input type="number" name="working_first_frame" placeholder="Working First Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Working Last Frame</th>
+                        <td>
+                            <input type="number" name="working_last_frame" placeholder="Working Last Frame">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Approved Version</th>
+                        <td>
+                            <input type="number" name="approved_version" placeholder="Approved Version">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Advance Filter -->
+    <div class="modal flex-column flex-screen-center" id="filters">
+        <div class="dialog w60 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Advance Filters</div>
+                <div class="close" onclick="hide_modal('filters')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="10%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Class</th>
+                        <th>Key</th>
+                        <th>Operation</th>
+                        <th>Value</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody_filters"></tbody>
+                </table>
+                <br>
+                <button class="block" onclick="add_filter()">Add Filter</button>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <button onclick="apply_filters(clear=true)" class="bg-red">Clear Filters</button>
+                <div class="flex-grow"></div>
+                <button onclick="apply_filters()">Apply Filter</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="flex-column flex-grow">
+        <div class="flex-row flex-no-shrink p10">
+            <!-- Toggle Switch -->
+            <a class="icon arrow-left" href="/projects_list/"></a>
+            &ensp;
+            <label class="switch toggle_view">
+                <input type="checkbox" onclick="toggle_view(this)">
+                <span class="slider"></span>
+            </label>
+            &ensp;
+            <div>
+                <input type="month" name="select__month" id="select__month" required="required"/>
+            </div>
+            &ensp;
+            <div class="flex-grow"></div>
+            &ensp;
+            <input type="search" class="wp20" placeholder="Search Shot" id="search_shot" list="search_shot_datalist">
+            <datalist id="search_shot_datalist"></datalist>
+            &ensp;
+            <button onclick="show_modal('filters')" id="btn_show_filters">Show Filters</button>
+            &ensp;
+            <!--<button onclick="show_modal('update_selected_tasks')">Update Selected Tasks</button>-->
+            <button id="vault_url">
+                <span>Open Vault Page</span>&ensp;
+                <div class="icon open"></div>
+            </button>
+
+            <!-- dropdown -->
+            <div class="dropdown p5">
+                <div class="icon list"></div>
+                <div class="menu">
+                    <a class="item" href="download_as_csv/" download>Download as CSV</a>
+                    <a class="item" href="download_actuals_breakdown/" download>Download Actuals Breakdown</a>
+                    <a class="item" href="download_artist_actuals_breakdown/" download>
+                        Download Artist Actual Breakdown
+                    </a>
+                    <a class="item" href="download_aggregated_actuals_report/" download>
+                        Download Aggregated Actual Report
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Timeline -->
+        <div class="flex-column flex-grow p10" id="timeline_view" style="padding-top: 0; display: none">
+            <div class="flex-row flex-no-shrink project-header">
+                <div class="wp25">
+                    <div class="icon collapse" style="margin:0; width: 1em" onclick="collapse_all()"></div>
+                    <div class="icon expand" style="margin:0; width: 1em" onclick="expand_all()"></div>
+                    <span>Name</span>
+                </div>
+                <div class="flex-grow flex-row align-center" id="timeline_header"></div>
+            </div>
+            <div class="flex-grow flex-column" id="timeline"></div>
+        </div>
+
+        <!-- Project -->
+        <div class="flex-column flex-grow p10" id="project_view" style="padding-top: 0">
+            <div class="flex-row flex-no-shrink project-header" style="border-right:5px solid white">
+                <div class="wp15">
+                    <div class="icon collapse" style="margin:0; width: 1em" onclick="collapse_all()"></div>
+                    <div class="icon expand" style="margin:0; width: 1em" onclick="expand_all()"></div>
+                    <span>Name</span>
+                </div>
+                <div class="wp10" align="center">Department</div>
+                <div class="wp10" align="center">Type</div>
+                <div class="wp10" align="center">Status</div>
+                <div class="wp5" align="center">Bids</div>
+                <div class="wp5" align="center">Actuals</div>
+                <div class="wp10" align="center">Start Date</div>
+                <div class="wp10" align="center">End Date</div>
+                <div class="wp15" align="center">Assignee</div>
+                <div class="wp10"></div>
+            </div>
+            <div class="flex-grow flex-column" id="container"></div>
+        </div>
+        <div class="flex-row flex-no-shrink p5 bg-grey" style="border-right:5px solid white">
+            <div class="wp45" id="total_count">
+                Shots:0 / Tasks:0
+            </div>
+            <div class="wp5 bold" id="total_bids" align="center">-</div>
+            <div class="wp5 bold" id="total_actuals" align="center">-</div>
+            <div class="flex-grow"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/projects.js?v=20191216.1"></script>
+{% endblock %}

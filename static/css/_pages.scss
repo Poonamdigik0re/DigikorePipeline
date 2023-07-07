@@ -1,0 +1,458 @@
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+#loading {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 20000;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  img {
+    animation: rotation 2s infinite linear;
+  }
+}
+
+#navbar {
+  background-color: $navbar-bg;
+  color: $navbar-fg;
+
+  #logo {
+    background: url(/static/favicon.png) no-repeat center;
+    background-size: 2.5em;
+    width: 4em;
+  }
+}
+
+@media(max-width: 1300px) {
+  #slider {
+    width: 40vw;
+    right: -50vw;
+  }
+}
+
+#slider {
+  position: fixed;
+  background: white;
+  height: 100vh;
+  width: 40vw;
+  right: -50vw;
+  z-index: 10000;
+  box-shadow: -5px 0 10px $shadow;
+  transition: right 250ms ease-in-out;
+
+  .heading {
+    background-color: $navbar-bg;
+    color: white;
+
+    .parent_name {
+      font-size: 150%;
+    }
+  }
+
+  .note {
+    .note-user {
+      padding: 0.5em;
+
+      img {
+        border-radius: 100px;
+        box-shadow: 0 0 2px #ddd;
+      }
+    }
+
+    .note-content {
+      margin-bottom: 1em;
+      background-color: #f5f5f5;
+      border-radius: 20px;
+      line-height: 1.5em;
+      padding: 0.75em 1em;
+      white-space: pre-line;
+    }
+
+    .note-footer {
+      font-size: 70%;
+    }
+  }
+
+  .attachment {
+    padding: 0.5em 0;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+#login_form {
+  input, button {
+    font-size: 120%;
+    padding: 0.75em 1em;
+  }
+}
+
+#notification-icon:hover > #notification_slider {
+  height: 50vh;
+}
+
+#notification_slider {
+  position: absolute;
+  right: 1em;
+  top: 5em;
+  height: 0;
+  width: 30vw;
+  background: white;
+  z-index: 10000;
+  box-shadow: 0 2px 4px #888;
+  transition: height 200ms ease-in-out;
+}
+
+// HOME
+#page_home {
+  .announcement {
+    padding: 1em;
+    border: 1px solid #eee;
+    border-radius: 0.5em;
+    box-shadow: 0 0.2em 0.4em $border-color;
+    margin-bottom: 1em;
+  }
+}
+
+.my-profile {
+  #profile_picture {
+    display: inline-block;
+    width: 250px;
+    height: 250px;
+    border-radius: 300px;
+    box-shadow: 0 0 4px black;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      & > .upload-icon {
+        top: 70px;
+      }
+    }
+
+    .upload-icon {
+      top: 250px;
+      position: absolute;
+      left: 50px;
+      opacity: 0.7;
+      transition: all 500ms;
+    }
+  }
+}
+
+// TEAM BUILDER
+
+.team-container {
+  margin: 0 1em 1em;
+  height: 40vh;
+  width: 220px;
+
+  .team-lead-name {
+    font-weight: bold;
+    font-size: 1em;
+    background-color: $border-color;
+  }
+
+  .team-name {
+    background-color: $border-color;
+    border-bottom: 1px solid $shadow;
+    font-weight: bold;
+    border-radius: 0.5em 0.5em 0 0;
+  }
+}
+
+.team-all-employees-list {
+  border-radius: 0.5em 0.5em 0 0;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.team-employees-list {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background: $bg-color;
+  border: 1px solid $border-color;
+  border-radius: 0 0 0.5em 0.5em;
+
+  li {
+    padding: 0.5em 1em;
+    cursor: -webkit-grab;
+  }
+
+  li:active {
+    cursor: -webkit-grabbing;
+  }
+
+  li:hover {
+    background-color: lighten($border-color, 10);
+  }
+}
+
+// PROJECTS LIST
+.project-tile {
+  width: 214px;
+}
+
+.asset-tile {
+  width: 178px;
+}
+
+.asset-tile, .project-tile {
+  margin: 0 2em 2em 0;
+  background: $clouds;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 2px 2px $shadow;
+    transform: scale(1.01);
+    transition: all 400ms;
+  }
+
+  .asset-name, .project-name {
+    padding: 0.5em;
+    font-weight: bold;
+    @extend %text-overflow;
+  }
+
+  .project-overview {
+    padding: 0.5em;
+    border-top: 0.25em solid white;
+    @extend %text-overflow;
+  }
+}
+
+// PROJECT
+.project-header {
+  font-weight: bold;
+  border-bottom: 1px solid $border-color;
+
+  & > div {
+    padding: 0.5em 1em;
+  }
+}
+
+.project {
+  .row {
+    border-bottom: 1px solid $border-color;
+    align-items: center;
+    height: 2.4em;
+
+    & > div:not(:first-child) {
+      padding: 0.25em 1em;
+    }
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+
+    .blank {
+      height: 1em
+    }
+  }
+
+  .date-ranges {
+    height: 100%;
+    padding: 0 1em !important;
+
+    div {
+      cursor: pointer;
+      flex-grow: 1;
+      font-weight: bold;
+      color: white;
+      border-left: 1px solid $border-color;
+      text-align: center;
+      padding: 0.5em;
+
+      &:hover {
+        color: $black !important;
+      }
+
+      &.end_date {
+        background-color: $yellow;
+        color: $black;
+      }
+
+      &.start-date {
+        background-color: $emerald;
+        color: $black;
+      }
+
+      &.client-deadline {
+        background-color: $red;
+        color: $black;
+      }
+
+      &.end_date.client-deadline {
+        background: linear-gradient(to right, $yellow 50%, $red 50%);
+      }
+
+      &.weekend {
+        background-color: $border-color;
+        color: $border-color;
+      }
+
+      &.holiday {
+        background-color: $light-blue;
+        color: $light-blue;
+      }
+    }
+  }
+
+  .filerecord-name {
+    padding-left: 3.5em;
+  }
+
+  .project-name {
+    background: url('/static/img/project.png') no-repeat left center;
+    background-size: 1.5em;
+    background-position-x: 1em;
+    padding: 0.5em 1em 0.5em 3.5em;
+    @extend %text-overflow;
+  }
+
+  .shot-name {
+    background: url('/static/img/shot.png') no-repeat left center;
+    background-size: 1.5em;
+    background-position-x: 1em;
+    padding: 0.5em 1em 0.5em 3.5em;
+    @extend %text-overflow;
+  }
+
+  .task-name {
+    background: url('/static/img/task.png') no-repeat left center;
+    background-size: 1.5em;
+    background-position-x: 6.5em;
+    padding: 0.5em 1em 0.5em 9em;
+    @extend %text-overflow;
+  }
+
+  .subtask-name {
+    background: url('/static/img/subtask.png') no-repeat left center;
+    background-size: 1.5em;
+    background-position-x: 9em;
+    padding: 0.5em 1em 0.5em 11.5em;
+    @extend %text-overflow;
+  }
+
+  //.task-selected {
+  //  margin-left: 6em;
+  //  vertical-align: sub;
+  //}
+
+  // Project
+  & > .model-group {
+
+    & > div > .row {
+      .caret-right, .caret-down {
+        margin: 0 0 0 0.75em;
+      }
+
+      .task-name, .filerecord-name {
+        padding-left: 8.5em;
+        background-position-x: 6em;
+      }
+    }
+  }
+
+  .subtask-status__name, .task-status__name, .shot-status__name {
+    @extend %text-overflow;
+  }
+
+  .subtask-status__name, .task-status__name, .shot-status__name {
+    background-color: $paper;
+    border-radius: 0.5em;
+    text-align: center;
+    border: 2px solid white;
+  }
+}
+
+// CLIENTS PAGE
+#page_clients, #page_vendors {
+  .client-name, .vendor-name {
+    cursor: pointer;
+    transition: background-color 400ms;
+
+    &:hover {
+      background-color: $paper;
+    }
+  }
+}
+
+// RESOURCE PLANNER
+
+#page_resource_planner {
+  #timeline_header, #headcount_header, #leaves_header, #absents_header, #totals_header {
+    div {
+      border: 1px solid $border-color;
+      flex: 1;
+      padding: 0.25em 0.5em;
+      background-color: $paper;
+    }
+  }
+
+  #available_header {
+    div {
+      border: 1px solid $border-color;
+      flex: 1;
+      padding: 0.25em 0.5em;
+    }
+  }
+
+  .date-ranges {
+    div {
+      border: 1px solid $border-color;
+      flex: 1;
+      padding: 0.25em 0.5em;
+      text-align: center;
+    }
+  }
+
+  .weekend {
+    background: $clouds !important;
+    color: $clouds !important;
+  }
+
+  .holiday {
+    background: $teal !important;
+    color: white;
+  }
+}
+
+#page_workstations {
+  .power-on {
+    width: 1.4em;
+    height: 1.4em;
+    background: lightgreen;
+    border-radius: 4em;
+    box-shadow: inset 0 0 0.5em green;
+  }
+
+  .power-off {
+    width: 1.4em;
+    height: 1.4em;
+    background: #bbb;
+    border-radius: 4em;
+    box-shadow: inset 0 0 0.5em #666;
+  }
+}
+
+#page_gmail_group {
+  .username {
+    background-color: lightskyblue;
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 1em;
+    margin-right: 0.5em;
+    line-height: 1.25em;
+  }
+}

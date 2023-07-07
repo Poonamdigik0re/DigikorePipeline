@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title bold p10">Gmail Group</div>
+{% endblock %}
+
+{% block modals %}
+
+    <form class="modal flex-column flex-screen-center" method="post" action=""
+          onsubmit="create_group(this); return false" id="create_group">
+        <div class="dialog w60 h60 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Create Group</div>
+                <div class="close" onclick="hide_modal('create_group')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <input type="hidden" name="group_id">
+                <table class="table no-border">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="80%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>
+                            <input type="email" name="email" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Members</th>
+                        <td>
+                            <select name="members" id="select-members" multiple></select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+    <div class="flex-grow flex-column p10" id="page_gmail_group">
+        <div class="flex-no-shrink">
+            <table class="table fixed">
+                <colgroup>
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="60%">
+                    <col width="10%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Members</th>
+                    <th align="right">
+                        <button onclick="show_modal('create_group')">Create Group</button>
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="flex-grow">
+            <table class="table fixed">
+                <colgroup>
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="65%">
+                    <col width="5%">
+                </colgroup>
+                <tbody id="all_groups"></tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/gmail_group.js?v=20191114.1"></script>
+{% endblock %}

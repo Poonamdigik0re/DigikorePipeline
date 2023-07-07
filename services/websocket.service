@@ -1,0 +1,13 @@
+[Unit]
+Description = Websocket Server
+After = network.target
+
+[Service]
+ExecStart = /opt/venv/digikoreCentral/bin/python /opt/repos/digikoreCentral/utils/wss.py
+Restart = always
+KillSignal = SIGTERM
+Type = simple
+StandardError = syslog
+
+[Install]
+WantedBy = default.target

@@ -1,0 +1,116 @@
+{% extends "index.html" %}
+
+{% block navbar %}
+    <div class="title p10 bold">Update Ticket</div>
+{% endblock %}
+
+{% block modals %}
+
+    <div id="myImgModal" class="img-modal">
+        <span class="img-close" onclick=' hide_modal("myImgModal");'>&times;</span>
+        <img class="img-modal-content" id="img01">
+    </div>
+
+    <div id="myDocModal" class="img-modal">
+        <span class="img-close" onclick=' hide_modal("myDocModal");'>&times;</span>
+        <iframe id="iframe01" src="" class="img-modal-content" width="800px" height="450px"
+                style="background-color:white;"></iframe>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-row">
+        <div class="wp20">
+            <div class="flex-row p10">
+                <div onclick="location.href='/tickets/'" class="p5 icon left" style="filter: brightness(0) invert(1);"></div>
+            </div>
+        </div>
+
+        <div class="wp60">
+            <div class=" p10 ">
+                <div class="border ">
+                    <div class="flex-row p10 bg-clouds">
+                        <div type="text" name="title" id="title" class="title bold flex-grow">
+                        </div>
+                    </div>
+                    <div name="description" id="description" class="p10" style='white-space: pre-line'></div>
+                </div>
+            </div>
+
+            <div id="tkt_attachments" class="p5 flex-row flex-align-right">
+
+            </div>
+
+            <form class="p10" method="post" action="" autocomplete="off"
+                  onsubmit="add_note(this); return false" id="add_note">
+
+                    <textarea name="note_text" id="note_text" class="wp100 h5" placeholder="Add Note"
+                              required="required" style="margin-bottom: 10px; max-height: 60vh"
+                              oninput="autoExpand(this)"></textarea>
+                <div class="flex-row flex-align-right">
+                    <input type="file" name="note_files" id="note_files" onchange="selected_file_count(this)"
+                           multiple hidden/>
+                    <div class="icon attachment" onclick="document.getElementById('note_files').click()"></div>
+                    <div class="font-large p5" id="file_count" hidden></div>
+                    <button type="submit" class="p5">Add Note</button>
+                </div>
+
+            </form>
+
+            <div id="ticket_notes" class="p10">
+            </div>
+        </div>
+
+        <div class="wp20 p10" id="update_ticket">
+            <div class="p10 border " style="margin-bottom: 10px">
+                <table class="table no-border" id="tkt_details" width="100%">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="60%">
+                    </colgroup>
+                </table>
+            </div>
+            <div class="p10 border">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="60%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Priority</th>
+                        <td>
+                            <select class="block" name="priority_id" id="priority_id"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>
+                            <select class="block" name="type_id" id="type_id"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <select class="block" name="status_id" id="status_id"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assign To</th>
+                        <td>
+                            <select class="block" name="assigned_to_id" id="assigned_to_id"></select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/update_tickets.js"></script>
+{% endblock %}

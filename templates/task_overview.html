@@ -1,0 +1,162 @@
+{% extends 'index.html' %}
+
+{% block navbar %}
+    <div class="title p10 bold">Overview</div>
+{% endblock %}
+
+{% block modals %}
+
+    <!-- Add Subtask -->
+    <form class="modal flex-column flex-screen-center" method="post" action="" id="add_subtask" autocomplete="off"
+          onsubmit="return false">
+        <div class="dialog w40 h60 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Subtask</div>
+                <div class="close" onclick="hide_modal('add_subtask')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table no-border" width="100%">
+                    <colgroup>
+                        <col width="40%">
+                        <col width="60%">
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>
+                            <input type="text" name="name" autofocus="autofocus" placeholder="Name" required="required">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>
+                            <select name="status_id" id="select_subtask_status" required="required"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Assignee</th>
+                        <td>
+                            <select name="assignee_id" id="select_subtask_assignee"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <th>
+                            <textarea name="description" rows="2" class="block" placeholder="Description"></textarea>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Bids (Days)</th>
+                        <td>
+                            <input type="number" name="bids" step="0.1" required="required" min="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Work Percentage</th>
+                        <td>
+                            <input type="number" name="work_perc" step="1" required="required" max="100" min="0">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="start_date" placeholder="Start Date">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>End Date</th>
+                        <td>
+                            <input type="text" class="datetime" name="end_date" placeholder="End Date">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Bidactuals Breakdown -->
+    <div class="modal flex-column flex-screen-center" id="bidactuals_breakdown">
+        <div class="dialog w40 h60 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Bid Actuals</div>
+                <div class="close" onclick="hide_modal('bidactuals_breakdown')"></div>
+            </div>
+            <!-- Content -->
+            <div class="content flex-grow">
+                <table class="table fixed" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Hours : Minutes</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody_bidactuals_breakdown">
+
+                    </tbody>
+                    <tfoot id="tfoot_bidactuals_breakdown">
+
+                    </tfoot>
+                </table>
+            </div>
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="flex-grow flex-column">
+        <div class="flex-no-shrink flex-column p10">
+            <div class="flex-row flex-no-shrink project-header bg-grey">
+                <div class="wp25">Name</div>
+                <div class="wp15" align="center">Type</div>
+                <div class="wp15" align="center">Status</div>
+                <div class="wp5" align="center">Bids</div>
+                <div class="wp5" align="center">Actuals</div>
+                <div class="wp10" align="center">Perc</div>
+                <div class="wp20" align="left">Assignee</div>
+                <div class="wp5"></div>
+            </div>
+            <div class="flex-grow flex-column" id="container"></div>
+        </div>
+
+        {#        <div class="flex-grow flex-column p10">#}
+        {#            <div class="flex-row flex-no-shrink project-header bg-grey">#}
+        {#                <div class="wp40">Name</div>#}
+        {#                <div class="wp10">Type</div>#}
+        {#                <div class="wp10">Status</div>#}
+        {#                <div class="wp5">Ver</div>#}
+        {#                <div class="wp10">Frames</div>#}
+        {#                <div class="wp10">Ext</div>#}
+        {#                <div class="wp5"></div>#}
+        {#                <div class="wp5"></div>#}
+        {#            </div>#}
+        {#            <div class="flex-grow flex-column project" id="filerecords"></div>#}
+        {#        </div>#}
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/js/task_overview.js"></script>
+{% endblock %}

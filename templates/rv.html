@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>digikore Central</title>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="initial-scale=1, width=device-width"/>
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.png"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/base.min.css">
+    <link rel="stylesheet" href="/static/css/rv.min.css">
+</head>
+<body>
+
+{% if user.is_authenticated %}
+
+    <div class="flex-grow flex-column p10">
+
+        <button onclick="get_projects()">Load Projects</button>
+
+        <div class="flex-row">
+            <div id="project_list">
+                aljklajskldfj
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Sequence</th>
+                <th>Shot</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+{% else %}
+    <!--LOGIN-->
+    <form action="/login/" method="post" id="login_form flex-column">
+        {% csrf_token %}
+        <input name="next" value='/rv' hidden/>
+        <div class="p10 w25">
+            <input class="block" name="username" type="text" placeholder="USERNAME" required autofocus/>
+        </div>
+        <div class="p10 w25">
+            <input class="block" name="password" type="password" placeholder="PASSWORD" required/>
+        </div>
+        <div class="p10 w25">
+            <button class="block" type="submit">LOGIN</button>
+        </div>
+        <div class="p10 align-center color-red w25">
+            {% if form.non_field_errors %}
+                Please enter correct username and password
+            {% endif %}
+        </div>
+    </form>
+
+{% endif %}
+
+<!-- JAVASCRIPTS -->
+<script type="text/javascript" src="/static/js/rv.js"></script>
+
+</body>

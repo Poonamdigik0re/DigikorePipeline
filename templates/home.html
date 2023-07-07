@@ -1,0 +1,124 @@
+{% extends 'index.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/libs/quill/quill.snow.css">
+    {#    <link rel="stylesheet" href="/static/libs/quill/quill.core.css">#}
+{% endblock %}
+
+{% block navbar %}
+<!--    <div class="title bold p10">Home</div>-->
+{% endblock %}
+
+{% block modals %}
+
+    <form class="modal flex-column flex-screen-center" method="post" action="" autocomplete="off"
+          onsubmit="add_announcement(this); return false" id="add_announcement">
+        <div class="dialog w80 h80 flex-column">
+            <!-- heading -->
+            <div class="heading flex-row flex-no-shrink">
+                <div class="flex-grow">Add Announcement</div>
+                <div class="close" onclick="hide_modal('add_announcement')"></div>
+            </div>
+            <!-- Content -->
+
+            <div class="content flex-grow flex-column" id="standalone-container">
+                <div id="toolbar-container">
+                    <span class="ql-formats">
+                        <select class="ql-font"></select>
+                        <select class="ql-size"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <select class="ql-color"></select>
+                        <select class="ql-background"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-script" value="sub"></button>
+                        <button class="ql-script" value="super"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-header" value="1"></button>
+                        <button class="ql-header" value="2"></button>
+                        <button class="ql-blockquote"></button>
+                        <button class="ql-code-block"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                        <button class="ql-indent" value="-1"></button>
+                        <button class="ql-indent" value="+1"></button>
+                    </span>
+                    <span class="ql-formats">
+{#                        <button class="ql-direction" value="rtl"></button>#}
+                        <select class="ql-align"></select>
+                    </span>
+                    {#                    <span class="ql-formats">#}
+                    {#                        <button class="ql-link"></button>#}
+                    {#                        <button class="ql-image"></button>#}
+                    {#                        <button class="ql-video"></button>#}
+                    {#                    </span>#}
+                    <span class="ql-formats">
+                        <button class="ql-clean"></button>
+                    </span>
+                </div>
+                <div class="flex-grow" id="editor-container"></div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer flex-row flex-no-shrink">
+                <div class="p5 bold font-large">Valid Till :</div>
+                <div><input type="text" class="datetime" name="valid_till" required="required"></div>
+                <div class="flex-grow"></div>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block content %}
+    <div class="flex-row flex-grow" id="page_home">
+        <div class="wp80 flex-column">
+            <div class="flex-no-shrink flex-row p10">
+                <div class="flex-grow font-xl bold">Digikore Bulletin Board</div>
+                {% if perms.base.add_announcement %}
+                    <div>
+                        <button onclick="show_modal('add_announcement')">Add Announcement</button>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- All Announcements -->
+            <div class="flex-grow p10" id="all_announcements"></div>
+        </div>
+        <div class="wp20 p10 flex-column">
+            <div class="flex-no-shrink">
+                <img src="/static/img/happy_birthday.jpg" alt="" style="width: 100%; border-radius:1em">
+            </div>
+            <br>
+            <div class="flex-grow">
+                <table class="table small-line-height hover">
+                    <colgroup>
+                        <col width="70%">
+                        <col width="30%">
+                    </colgroup>
+                    <tbody id="upcoming_birthdays"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="/static/libs/quill/quill.min.js"></script>
+<!--    <script type="text/javascript" src="/static/libs/quill/quill.core.js"></script>-->
+    <script type="text/javascript" src="/static/js/home.js"></script>
+{% endblock %}
