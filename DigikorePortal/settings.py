@@ -102,11 +102,11 @@ WSGI_APPLICATION = 'DigikorePortal.wsgi.application'
 
 DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test51',
-        'USER': 'root',
-        'PASSWORD':'Omkar@123',
-        'HOST':'localhost',
+       'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'task3',
+        'USER': 'omkars',
+        'PASSWORD':'India@135',
+        'HOST':'192.168.2.46',
         'PORT':'3306',
 
     }
